@@ -1,8 +1,11 @@
 const express = require('express');
-
 const bodyParser = require('body-parser');
 
+const db = require('./dbcontext/database');
+
 const app = express();
+
+db.execute('');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
