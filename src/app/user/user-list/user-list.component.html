@@ -1,0 +1,21 @@
+<mat-accordion multi="true" *ngIf="users.length > 0">
+  <mat-expansion-panel *ngFor="let user of users">
+    <mat-expansion-panel-header>
+      <div class="header-panel">
+        <div class="header-panel-icon">
+          <fa-icon [icon]="faFlask"></fa-icon>
+        </div>
+        <div class="header-panel-user">
+          {{user.lastname}}, {{user.firstname}}
+        </div>
+      </div>
+    </mat-expansion-panel-header>
+      {{user.role.name}}
+
+    <mat-action-row>
+      <button mat-button color="success">Edytuj</button>
+      <button mat-button color="warn">Usuń</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+</mat-accordion>
+<p class="mat-body-1" *ngIf="users.length ==0">Na razie nie ma żadnych użytkowników</p>

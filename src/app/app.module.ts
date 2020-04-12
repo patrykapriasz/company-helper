@@ -11,6 +11,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -18,6 +19,12 @@ import { AdminComponent } from './admin/admin.component';
 import { UserComponent } from './user/user.component';
 import { RoleComponent } from './role/role.component';
 import { UserCreateComponent } from './user/user-create/user-create.component';
+import { RoleListComponent } from './role/role-list/role-list.component';
+import { RoleCreateComponent } from './role/role-create/role-create.component';
+import { UserListComponent } from './user/user-list/user-list.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ManagerComponent } from './manager/manager.component';
+import { ManagerTaskComponent } from './manager/manager-task/manager-task.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +33,12 @@ import { UserCreateComponent } from './user/user-create/user-create.component';
     AdminComponent,
     UserComponent,
     RoleComponent,
-    UserCreateComponent
+    UserCreateComponent,
+    RoleListComponent,
+    RoleCreateComponent,
+    UserListComponent,
+    ManagerComponent,
+    ManagerTaskComponent
   ],
   imports: [
     BrowserModule,
@@ -40,6 +52,8 @@ import { UserCreateComponent } from './user/user-create/user-create.component';
     MatSelectModule,
     HttpClientModule,
     MatButtonModule,
+    MatExpansionModule,
+    FontAwesomeModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

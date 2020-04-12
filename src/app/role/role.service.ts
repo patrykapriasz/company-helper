@@ -2,9 +2,13 @@ import { Injectable} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Role } from './role.model';
+import { Subject } from 'rxjs';
 
 @Injectable({providedIn: 'root'})
 export class RoleService {
+
+  private roles: Role[];
+  private updatedRoles = new Subject<Role[]>();
 
   constructor(private http: HttpClient){}
 
@@ -15,7 +19,17 @@ export class RoleService {
       name: name
     }
     this.http.post('http://localhost:3000/admin/create-role',role).subscribe();
-    //this.http.get('http://127.0.0.1:3000/admin/check').subscribe();
+  };
+
+  getAllRoles() {
+    this.http.get<{message: string, roles:Role[]}>('http://localhost:3000/roles').subscribe((response) => {
+      this.roles = response.roles;
+      this.updatedRoles.next([...this.roles]);
+    });
+  };
+
+  getRoleUpdateListener() {
+    return this.updatedRoles.asObservable();
   }
 
 }

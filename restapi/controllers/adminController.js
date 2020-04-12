@@ -11,9 +11,14 @@ exports.addUser = (req,res,next) => {
     firstname: firstname,
     lastname: lastname,
     login: login,
-    role:role
+    roleId: role
   })
-  .then()
+  .then(result => {
+    res.status(201).json({
+      message: "Success",
+      content: result
+    });
+  })
   .catch(error=>{
     console.log(error);
   });

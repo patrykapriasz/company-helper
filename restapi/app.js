@@ -4,8 +4,14 @@ const bodyParser = require('body-parser');
 const sequelize = require('./dbcontext/database');
 const User = require('./models/user');
 const Role = require('./models/role');
+const Status = require('./models/status');
+const Department = require('./models/department');
+const Task = require('./models/task');
 
 const adminRoute = require('./routes/admin.route');
+const roleRoute = require('./routes/role.route');
+const userRoute = require('./routes/user.route');
+const departmentRoute = require('./routes/department.route');
 
 const app = express();
 
@@ -19,10 +25,18 @@ app.use((req,res,next)=>{
   next();
 });
 
+User.belongsTo(Role);
 Role.hasMany(User);
+Department.hasMany(Task);
+Status.hasMany(Task);
+User.belongs
 
 app.use(adminRoute);
+app.use(roleRoute);
+app.use(userRoute);
 
-sequelize.sync().then().catch();
+sequelize.sync().then().catch(error => {
+  console.log(error);
+});
 
 module.exports = app;

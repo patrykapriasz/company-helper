@@ -7,6 +7,9 @@ import { User } from './user.model';
 @Injectable({providedIn: 'root'})
 export class UserService {
 
+  private users: User[];
+  private updatedUser = new Subject<User[]>();
+
   constructor(private http: HttpClient){
 
   }
@@ -19,10 +22,20 @@ export class UserService {
       lastname:lastname,
       role:role
     };
-
     this.http.post<{message:string,userId:any}>('http://localhost:3000/admin/create-user',user)
       .subscribe(response =>{
         console.log(response);
       });
+  };
+
+  getAllUsers() {
+    this.http.get<{message:string, content:User[]}>('http://localhost:3000/users').subscribe((response) => {
+      this.users = response.content;
+      this.updatedUser.next([...this.users]);
+    });
+  };
+
+  getusersUpdateListener() {
+    return this.updatedUser.asObservable();
   }
 }

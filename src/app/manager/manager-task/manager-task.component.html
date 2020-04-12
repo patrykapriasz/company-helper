@@ -1,0 +1,13 @@
+<mat-card>
+  <form #taskForm="ngForm">
+    <mat-form-field appearance="legacy">
+      <input matInput type="text" name="title" placeholder="Tytuł zadania" ngModel #title="ngModel" required />
+    </mat-form-field>
+    <mat-form-field appearance="legacy">
+      <mat-label>Dział</mat-label>
+        <mat-select name="department" ngModel #department="ngModel" required>
+          <mat-option></mat-option>
+        </mat-select>
+    </mat-form-field>
+  </form>
+</mat-card>

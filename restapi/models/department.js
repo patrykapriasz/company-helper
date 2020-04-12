@@ -2,25 +2,17 @@ const Sequelize = require('sequelize');
 
 const sequelize = require('../dbcontext/database');
 
-const User = sequelize.define('user',{
+const Department = sequelize.define('department',{
   id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
     allowNull: false,
     primaryKey: true
   },
-  login: {
-    type: Sequelize.STRING,
-    allowNull: false,
-  },
-  firstname: {
-    type: Sequelize.STRING,
-    allowNull: false
-  },
-  lastname: {
+  name: {
     type: Sequelize.STRING,
     allowNull: false
   }
 });
 
-module.exports = User;
+module.exports = Department;
