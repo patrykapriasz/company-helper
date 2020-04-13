@@ -11,6 +11,11 @@
     </mat-form-field>
     <br/>
     <mat-form-field appearance="legacy">
+      <input matInput type="text" name="password" placeholder="hasło" ngModel #password="ngModel" required>
+      <mat-error *ngIf="password.invalid">Hasło jest wymagane</mat-error>
+    </mat-form-field>
+    <br/>
+    <mat-form-field appearance="legacy">
       <mat-label>Grupa pracownicza</mat-label>
       <mat-select name="role" required ngModel #role="ngModel">
         <mat-option *ngFor="let role of roles let i = index" [value]="roles[i].id">{{roles[i].name}}</mat-option>

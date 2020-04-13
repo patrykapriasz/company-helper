@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -12,6 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -25,6 +26,9 @@ import { UserListComponent } from './user/user-list/user-list.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ManagerComponent } from './manager/manager.component';
 import { ManagerTaskComponent } from './manager/manager-task/manager-task.component';
+import { LoginComponent } from './auth/login/login.component';
+import { AuthInterceptor } from './auth/auth-interceptor';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +42,9 @@ import { ManagerTaskComponent } from './manager/manager-task/manager-task.compon
     RoleCreateComponent,
     UserListComponent,
     ManagerComponent,
-    ManagerTaskComponent
+    ManagerTaskComponent,
+    LoginComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -54,8 +60,9 @@ import { ManagerTaskComponent } from './manager/manager-task/manager-task.compon
     MatButtonModule,
     MatExpansionModule,
     FontAwesomeModule,
+    MatProgressSpinnerModule,
   ],
-  providers: [],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi:true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

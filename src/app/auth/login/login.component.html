@@ -1,0 +1,12 @@
+<mat-card>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <form *ngIf="!isLoading" (submit)="onLogin(loginForm)" #loginForm="ngForm">
+    <mat-form-field appearance="legacy">
+      <input matInput type="text" name="login" placeholder="login" ngModel #login="ngModel" required />
+    </mat-form-field>
+    <mat-form-field appearance="legacy">
+      <input matInput type="text" name="password" placeholder="hasło" ngModel #password="ngModel" required />
+    </mat-form-field>
+    <button mat-raised-button type="submit">Zaloguj się</button>
+  </form>
+</mat-card>

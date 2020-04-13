@@ -14,13 +14,14 @@ export class UserService {
 
   }
 
-  addNewUser(firstname:string, lastname:string,role:number){
+  addNewUser(firstname:string, lastname:string,role:number, password: string){
     const user: User = {
       id:null,
       login:null,
       firstname:firstname,
       lastname:lastname,
-      role:role
+      role:role,
+      password: password
     };
     this.http.post<{message:string,userId:any}>('http://localhost:3000/admin/create-user',user)
       .subscribe(response =>{

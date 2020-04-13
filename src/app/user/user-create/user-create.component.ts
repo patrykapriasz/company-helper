@@ -18,7 +18,10 @@ export class UserCreateComponent implements OnInit, OnDestroy {
   constructor(private userService: UserService, private roleService: RoleService) { }
 
   addNewUser(form:NgForm){
-      this.userService.addNewUser(form.value.firstname,form.value.lastname,form.value.role);
+    if(form.invalid) {
+      return;
+    }
+    this.userService.addNewUser(form.value.firstname,form.value.lastname,form.value.role, form.value.password);
   }
 
   ngOnInit(): void {

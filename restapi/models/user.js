@@ -20,6 +20,11 @@ const User = sequelize.define('user',{
   lastname: {
     type: Sequelize.STRING,
     allowNull: false
+  },
+  password: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    unique: true
   }
 });
 
