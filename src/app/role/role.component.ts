@@ -9,12 +9,12 @@ import { NgForm } from '@angular/forms';
 })
 export class RoleComponent implements OnInit {
 
-  constructor(private roleService: RoleService) { }
+  // constructor(private roleService: RoleService) { }
 
-  addNewRole(form: NgForm) {
-    console.log('role component add role');
-    this.roleService.addNewRole(form.value.name);
-  }
+  // addNewRole(form: NgForm) {
+  //   console.log('role component add role');
+  //   this.roleService.addNewRole(form.value.name);
+  // }
 
   ngOnInit(): void {
   }

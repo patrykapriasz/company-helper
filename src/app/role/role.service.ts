@@ -18,7 +18,10 @@ export class RoleService {
       id:null,
       name: name
     }
-    this.http.post('http://localhost:3000/admin/create-role',role).subscribe();
+    this.http.post<{message: string, content: Role}>('http://localhost:3000/admin/create-role',role).subscribe(response => {
+      this.roles.push(response.content);
+      this.updatedRoles.next([...this.roles]);
+    });
   };
 
   getAllRoles() {

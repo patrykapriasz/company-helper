@@ -15,12 +15,12 @@ exports.addUser = (req,res,next) => {
         firstname: firstname,
         lastname: lastname,
         login: login,
-        roleId: role,
+        roleId: role.id,
         password: hash,
       }).then(result => {
         res.status(201).json({
           message: "Success",
-          content: result
+          content: result.id
         })
       }).catch(error=>{
         res.status(500).json({
@@ -29,23 +29,6 @@ exports.addUser = (req,res,next) => {
         })
       });
     })
-
-  // User.create({
-  //   firstname: firstname,
-  //   lastname: lastname,
-  //   login: login,
-  //   roleId: role,
-  //   password: password,
-  // })
-  // .then(result => {
-  //   res.status(201).json({
-  //     message: "Success",
-  //     content: result
-  //   });
-  // })
-  // .catch(error=>{
-  //   console.log(error);
-  // });
 };
 
 exports.AddRole = (req,res,next) => {
@@ -55,9 +38,12 @@ exports.AddRole = (req,res,next) => {
   Role.create({
     name: name
   }).then(result => {
-    console.log(result);
+    res.status(200).json({
+      message: 'success',
+      content: result
+    })
   }).catch(error => {
-    console.log(error);
+    res.status(500).json({message: "Error"})
   });
 }
 
