@@ -61,6 +61,7 @@ export class AuthService {
 
   autoAuthUser() {
     const authinformation = this.getAuthData();
+    console.log(authinformation);
     if(!authinformation){
       return;
     }
@@ -69,15 +70,15 @@ export class AuthService {
     if(expiresIn > 0) {
       this.token = authinformation.token;
       this.isAuthenticated = true;
-      this.setAuthTimer(expiresIn)
-      this.authStatusListener.next(true)
+      this.setAuthTimer(expiresIn/1000);
+      this.authStatusListener.next(true);
     }
    }
 
   private setAuthTimer(duration: number) {
     this.tokenTimer = setTimeout(() => {
               this.onLogout();
-            },duration*1000);
+            }, duration * 1000);
   }
 
   private saveAuthData(token: string, expirationDate: Date) {
