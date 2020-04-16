@@ -1,0 +1,18 @@
+<mat-accordion multi="true" *ngIf="roles.length > 0">
+  <mat-expansion-panel *ngFor="let role of roles">
+    <mat-expansion-panel-header>
+      {{role.name}}
+    </mat-expansion-panel-header>
+    <div *ngIf="employeeWithRole.length >0">
+      <ul *ngFor="let employee of employeeWithRole">
+        <li>{{employee.lastname}}, {{employee.firstname}}</li>
+      </ul>
+    </div>
+    <p *ngIf="employeeWithRole.length == 0">Żaden pracownik nie ma jeszcze takie roli</p>
+    <mat-action-row>
+      <button mat-button color="accent">Edytuj</button>
+      <button mat-button color="warn">Usuń</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+</mat-accordion>
+<p class="mat-body-1" *ngIf="roles.length ==0">Na razie nie ma żadnej utworzonej roli</p>

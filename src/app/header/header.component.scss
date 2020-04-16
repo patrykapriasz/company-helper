@@ -1,0 +1,32 @@
+mat-toolbar {
+  background-color: steelblue;
+}
+
+.navbar {
+  justify-content: space-between;
+}
+
+span {
+  padding-right: 1rem;
+
+}
+
+.spacer {
+  flex: 1 auto;
+}
+
+ul {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}

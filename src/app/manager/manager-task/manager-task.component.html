@@ -1,0 +1,26 @@
+<mat-card>
+  <form #taskForm="ngForm">
+    <mat-form-field appearance="legacy">
+      <input matInput type="text" name="title" placeholder="Tytuł zadania" ngModel #title="ngModel" required />
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="legacy">
+      <input matInput type="text" name="descriptio " placeholder="opis" ngModel #description="ngModel" required />
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="legacy">
+      <mat-label>Dział</mat-label>
+        <mat-select name="department" ngModel #department="ngModel" required>
+          <mat-option></mat-option>
+        </mat-select>
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="legacy">
+      <mat-label>Pracownik</mat-label>
+        <mat-select name="employee" ngModel #employee="ngModel" required>
+          <mat-option></mat-option>
+        </mat-select>
+    </mat-form-field>
+    <button mat-raised-button type="submit" color="warn">Utwórz zadanie</button>
+  </form>
+</mat-card>

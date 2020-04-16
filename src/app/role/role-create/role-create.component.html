@@ -1,0 +1,11 @@
+<mat-card>
+  <form (submit)="addNewRole(roleForm)" #roleForm="ngForm">
+    <mat-form-field appearance="legacy">
+      <input matInput type="text" name="name" placeholder="nazwa roli" ngModel #name="ngModel" required>
+      <mat-error *ngIf="name.invalid">Nazwa roli jest wymagana</mat-error>
+    </mat-form-field>
+    <br/>
+    <br/>
+    <button mat-raised-button type="submit" color="warn">Utwórz nową rolę</button>
+  </form>
+</mat-card>

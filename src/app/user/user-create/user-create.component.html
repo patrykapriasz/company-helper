@@ -1,0 +1,29 @@
+<mat-card>
+  <form (submit)="addNewUser(userForm)" #userForm="ngForm">
+    <mat-form-field appearance="legacy">
+      <input matInput type="text" name="firstname" placeholder="Imię" ngModel #firstname="ngModel" required>
+      <mat-error *ngIf="firstname.invalid">Imię jest wymagane</mat-error>
+    </mat-form-field>
+    <br/>
+    <mat-form-field appearance="legacy">
+      <input matInput type="text" name="lastname" placeholder="nazwisko" ngModel #lastname="ngModel" required>
+      <mat-error *ngIf="lastname.invalid">Nazwisko jest wymagane</mat-error>
+    </mat-form-field>
+    <br/>
+    <mat-form-field appearance="legacy">
+      <input matInput type="text" name="password" placeholder="hasło" ngModel #password="ngModel" required>
+      <mat-error *ngIf="password.invalid">Hasło jest wymagane</mat-error>
+    </mat-form-field>
+    <br/>
+    <mat-form-field appearance="legacy">
+      <mat-label>Grupa pracownicza</mat-label>
+      <mat-select name="role" required ngModel #role="ngModel">
+        <mat-option *ngFor="let role of roles let i = index" [value]="roles[i].id">{{roles[i].name}}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="role.invalid">Rola jest wymagana</mat-error>
+    </mat-form-field>
+    <br/>
+    <br/>
+    <button mat-raised-button type="submit" color="warn">Utwórz użytkownika</button>
+  </form>
+</mat-card>

@@ -1,0 +1,16 @@
+.user-container {
+  display: flex;
+  width: 100%;
+  margin: 1rem;
+
+  .user-create {
+    width: 40%;
+    padding: 1rem;
+  }
+
+  .user-list {
+    width: 60%;
+    padding: 1rem;;
+  }
+
+}
