@@ -7,6 +7,9 @@ const Role = require('./models/role');
 const Status = require('./models/status');
 const Department = require('./models/department');
 const Task = require('./models/task');
+const Report = require('./models/report');
+const ReportItem = require('./models/report-item');
+const SampleSource = require('./models/sampleSource');
 
 const adminRoute = require('./routes/admin.route');
 const roleRoute = require('./routes/role.route');
@@ -27,17 +30,21 @@ app.use((req,res,next)=>{
 });
 
 User.belongsTo(Role);
-Role.hasMany(User);
+//Role.hasMany(User);
 Department.hasMany(Task);
 Status.hasMany(Task);
-User.belongs
+
+Report.hasMany(ReportItem);
+User.hasMany(Report);
+SampleSource.hasMany(Report);
+
 
 app.use(adminRoute);
 app.use(roleRoute);
 app.use(userRoute);
 app.use(loginRoute);
 
-sequelize.sync().then().catch(error => {
+sequelize.sync({force: true}).then().catch(error => {
   console.log(error);
 });
 

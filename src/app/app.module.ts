@@ -29,6 +29,10 @@ import { ManagerTaskComponent } from './manager/manager-task/manager-task.compon
 import { LoginComponent } from './auth/login/login.component';
 import { AuthInterceptor } from './auth/auth-interceptor';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { LaboratoryComponent } from './laboratory/laboratory.component';
+import { LaboratoryReportComponent } from './laboratory/laboratory-report/laboratory-report.component';
+import { LaboratoryReportCreateComponent } from './laboratory/laboratory-report/laboratory-report-create/laboratory-report-create.component';
+import { LaboratoryReportListComponent } from './laboratory/laboratory-report/laboratory-report-list/laboratory-report-list.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +48,11 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     ManagerComponent,
     ManagerTaskComponent,
     LoginComponent,
-    DashboardComponent
+    DashboardComponent,
+    LaboratoryComponent,
+    LaboratoryReportComponent,
+    LaboratoryReportCreateComponent,
+    LaboratoryReportListComponent
   ],
   imports: [
     BrowserModule,
