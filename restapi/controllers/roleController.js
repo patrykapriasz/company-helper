@@ -23,8 +23,6 @@ exports.getRoleById = (req,res,next) => {
 };
 
 exports.addRole = (req,res,next) => {
-  console.log("method add role");
-  console.log(req.body);
   Role.create({
     name: req.body.name
   })

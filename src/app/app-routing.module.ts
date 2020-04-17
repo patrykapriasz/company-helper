@@ -9,16 +9,18 @@ import { ManagerComponent } from './manager/manager.component';
 import { LoginComponent } from './auth/login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthGuard } from './auth/auth.guard';
+import { LaboratoryComponent } from './laboratory/laboratory.component';
 
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
-  { path: 'admin', component: AdminComponent, canActivate: [AuthGuard] },
-  { path:'admin/user-create', component: UserComponent, canActivate: [AuthGuard] },
-  { path: 'admin/role-create', component: RoleComponent, canActivate: [AuthGuard] },
+  { path: 'admin', component: AdminComponent},
+  { path:'admin/user-create', component: UserComponent},
+  { path: 'admin/role-create', component: RoleComponent},
   { path: 'manager', component: ManagerComponent, canActivate:[AuthGuard] },
   { path: 'login', component: LoginComponent },
-  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] }
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+  { path: 'laboratory', component: LaboratoryComponent}
 ];
 
 @NgModule({
