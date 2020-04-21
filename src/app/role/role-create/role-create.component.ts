@@ -14,6 +14,7 @@ export class RoleCreateComponent implements OnInit {
   addNewRole(form: NgForm) {
     console.log('role component add role');
     this.roleService.addNewRole(form.value.name);
+    form.reset();
   }
 
   ngOnInit(): void {

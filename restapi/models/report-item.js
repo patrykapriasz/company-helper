@@ -9,7 +9,6 @@ const ReportItem = sequelize.define('reportItem',{
     autoIncrement: true,
     allowNull: false
   },
-  name: Sequelize.STRING,
   value: Sequelize.FLOAT,
   unit: Sequelize.STRING
 });

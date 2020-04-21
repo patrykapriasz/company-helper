@@ -22,6 +22,7 @@ export class UserCreateComponent implements OnInit, OnDestroy {
       return;
     }
     this.userService.addNewUser(form.value.firstname,form.value.lastname,form.value.role, form.value.password);
+    form.reset();
   }
 
   ngOnInit(): void {

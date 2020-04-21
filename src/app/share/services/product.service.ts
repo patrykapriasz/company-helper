@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Product } from '../models/product.model';
 import { Subject } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({providedIn: 'root'})
 export class ProductService {
@@ -12,7 +13,7 @@ export class ProductService {
   constructor(private httpClient: HttpClient){}
 
   getAllProducts() {
-    this.httpClient.get<{message: string, content: Product[]}>('http://localhost:3000/products').subscribe(result => {
+    this.httpClient.get<{message: string, content: Product[]}>(environment.apiUrl+'/products').subscribe(result => {
       this.products = result.content;
       this.productUpdate.next([...this.products]);
     });

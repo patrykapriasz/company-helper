@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Report } from './report.model';
 import { Subject } from 'rxjs';
+import { environment } from '../../environments/environment';
+
+import { ReportItem } from './report-item.model';
 
 @Injectable({providedIn: 'root'})
 export class ReportService {
@@ -11,9 +14,13 @@ export class ReportService {
 
   constructor(private http: HttpClient){}
 
-  createReport(report: Report){
+  createReport(report: Report, reportItem: ReportItem[]){
 
-    this.http.post<{message: string, content: Report}>('',report).subscribe(result => {
+    const reportData = {
+      report: report,
+      reportItem: reportItem
+    }
+    this.http.post<{message: string, content: Report}>(environment.apiUrl+'reports',reportData).subscribe(result => {
       this.reports.push(result.content);
       this.updatedReport.next([...this.reports])
     });

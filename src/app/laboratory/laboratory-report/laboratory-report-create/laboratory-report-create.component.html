@@ -1,10 +1,5 @@
-<mat-card>
+<!-- <mat-card>
   <form (submit)="addReport(reportForm)" #reportForm="ngForm">
-    <mat-form-field appearance="legacy">
-      <input matInput type="text" name="firstname" placeholder="Imię" ngModel #firstname="ngModel" required>
-      <mat-error *ngIf="firstname.invalid">Imię jest wymagane</mat-error>
-    </mat-form-field>
-    <br/>
     <mat-form-field appearance="legacy">
       <mat-label>Przedmiot badania</mat-label>
       <mat-select name="subject" required ngModel #subject="ngModel">
@@ -16,22 +11,76 @@
     <mat-form-field appearance="legacy">
       <mat-label>Próbobiorca</mat-label>
       <mat-select name="sampelDeliver" required ngModel #sampleDeliver="ngModel">
-        <mat-option *ngFor="let user of users let i = index" [value]="users[i].id">{{user[i].firstname}} {{user[i].lastname}}</mat-option>
+        <mat-option *ngFor="let user of users let i = index" [value]="users[i].id">{{users[i].firstname}} {{users[i].lastname}}</mat-option>
       </mat-select>
       <mat-error *ngIf="sampleDeliver.invalid">Próbobiorca jest wymagana</mat-error>
     </mat-form-field>
     <br>
     <mat-form-field appearance="legacy">
       <mat-label>Źródło</mat-label>
-      <mat-select name="sampelSource" required ngModel #sampleSource="ngModel">
-        <mat-option *ngFor="let user of users let i = index" [value]="users[i].id">{{user[i].firstname}} {{user[i].lastname}}</mat-option>
+      <mat-select name="warehouse" required ngModel #warehouse="ngModel">
+        <mat-option *ngFor="let warehouse of warehouses let i = index" [value]="warehouses[i].id">{{warehouses[i].name}}</mat-option>
       </mat-select>
-      <mat-error *ngIf="sampleSource.invalid">Źródło jest wymagana</mat-error>
+      <mat-error *ngIf="warehouse.invalid">Źródło jest wymagana</mat-error>
     </mat-form-field>
     <br>
-    <button  mat-raised-button color="dark">Dodaj badany parametr</button>
+    <button  mat-mini-fab color="primal" (click) = "addParameter()">+1</button>
     <br/>
     <br/>
-    <button mat-raised-button type="submit" color="warn">Utwórz raport</button>
+      <button mat-raised-button type="submit" color="warn">Utwórz raport</button>
+  </form>
+</mat-card> -->
+
+<mat-card>
+  <h2>RAPORT Z BADANIA </h2>
+  <br>
+  <form (submit)="addReport(reportForm)" #reportForm="ngForm">
+    <div class="report-card">
+      <div class="report-card-basic">
+        <mat-form-field appearance="legacy">
+          <mat-label>Przedmiot badania</mat-label>
+          <mat-select name="subject" required ngModel #subject="ngModel">
+            <mat-option *ngFor="let product of products let i = index" [value]="products[i].id" (click)="getParameters(product.id)">{{products[i].name}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="subject.invalid">Produkt badań jest wymagana</mat-error>
+        </mat-form-field>
+        <br>
+        <br>
+        <mat-form-field appearance="legacy">
+          <mat-label>Próbobiorca</mat-label>
+          <mat-select name="sampleTaker" required ngModel #sampleTaker="ngModel">
+            <mat-option *ngFor="let user of users let i = index" [value]="users[i].id">{{users[i].firstname}} {{users[i].lastname}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="sampleTaker.invalid">Próbobiorca jest wymagana</mat-error>
+        </mat-form-field>
+        <br>
+        <br>
+        <mat-form-field appearance="legacy">
+          <mat-label>Źródło</mat-label>
+          <mat-select name="warehouse" required ngModel #warehouse="ngModel">
+            <mat-option *ngFor="let warehouse of warehouses let i = index" [value]="warehouses[i].id">{{warehouses[i].name}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="warehouse.invalid">Źródło jest wymagana</mat-error>
+        </mat-form-field>
+        <br>
+        <br>
+        <mat-form-field appearance="legacy">
+          <textarea matInput name="description" placeholder="opis/uwagi" ngModel #description="ngModel"></textarea>
+        </mat-form-field>
+        <br>
+        <br>
+      </div>
+      <div class="report-card-params">
+        <button  mat-mini-fab color="primal">+1</button>
+        <div *ngIf="productParameters.length>0">
+          <app-report-item *ngFor="let productParameter of productParameters" [productParameter]= "productParameter" (finishedReaserch)="addReportItem($event)"></app-report-item>
+          <br>
+        </div>
+      </div>
+    </div>
+    <br/>
+    <br/>
+      <button mat-raised-button type="submit" color="warn">Utwórz raport</button>
   </form>
 </mat-card>
+

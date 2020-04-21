@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { Role } from './role.model';
 import { Subject } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({providedIn: 'root'})
 export class RoleService {
@@ -18,14 +19,14 @@ export class RoleService {
       id:null,
       name: name
     }
-    this.http.post<{message: string, content: Role}>('http://localhost:3000/admin/create-role',role).subscribe(response => {
+    this.http.post<{message: string, content: Role}>(environment.apiUrl+'/admin/create-role',role).subscribe(response => {
       this.roles.push(response.content);
       this.updatedRoles.next([...this.roles]);
     });
   };
 
   getAllRoles() {
-    this.http.get<{message: string, roles:Role[]}>('http://localhost:3000/roles').subscribe((response) => {
+    this.http.get<{message: string, roles:Role[]}>(environment.apiUrl+'/roles').subscribe((response) => {
       this.roles = response.roles;
       this.updatedRoles.next([...this.roles]);
     });

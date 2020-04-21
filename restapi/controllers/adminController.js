@@ -14,13 +14,13 @@ exports.addUser = (req,res,next) => {
       User.create({
         firstname: firstname,
         lastname: lastname,
-        login: login,
+        login: login.toLowerCase(),
         roleId: role.id,
         password: hash,
       }).then(result => {
         res.status(201).json({
           message: "Success",
-          content: result.id
+          content: result
         })
       }).catch(error=>{
         res.status(500).json({

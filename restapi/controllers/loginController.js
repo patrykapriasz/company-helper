@@ -22,7 +22,7 @@ exports.login = (req,res,next) => {
         message: 'Auth failed 2'
       })
     }
-    const token = jwt.sign({login: fetchedUser.login, userId: fetchedUser.id},'temporary_secret', {expiresIn:"1h"});
+    const token = jwt.sign({login: fetchedUser.login, userId: fetchedUser.id},process.env.JWT_KEY, {expiresIn:"1h"});
     res.status(200).json(
       {
         token: token,
