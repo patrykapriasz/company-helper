@@ -13,6 +13,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatTooltipModule } from '@angular/material/tooltip'
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -29,6 +30,12 @@ import { ManagerTaskComponent } from './manager/manager-task/manager-task.compon
 import { LoginComponent } from './auth/login/login.component';
 import { AuthInterceptor } from './auth/auth-interceptor';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { LaboratoryComponent } from './laboratory/laboratory.component';
+import { LaboratoryReportComponent } from './laboratory/laboratory-report/laboratory-report.component';
+import { LaboratoryReportCreateComponent } from './laboratory/laboratory-report/laboratory-report-create/laboratory-report-create.component';
+import { LaboratoryReportListComponent } from './laboratory/laboratory-report/laboratory-report-list/laboratory-report-list.component';
+import { WarehouseComponent } from './warehouse/warehouse.component';
+import { ReportItemComponent } from './laboratory/report-item/report-item.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +51,13 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     ManagerComponent,
     ManagerTaskComponent,
     LoginComponent,
-    DashboardComponent
+    DashboardComponent,
+    LaboratoryComponent,
+    LaboratoryReportComponent,
+    LaboratoryReportCreateComponent,
+    LaboratoryReportListComponent,
+    WarehouseComponent,
+    ReportItemComponent
   ],
   imports: [
     BrowserModule,
@@ -61,6 +74,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     MatExpansionModule,
     FontAwesomeModule,
     MatProgressSpinnerModule,
+    MatTooltipModule
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi:true}],
   bootstrap: [AppComponent]

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { AuthModel } from './auth.model';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environment';
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
@@ -33,7 +34,7 @@ export class AuthService {
       login: login,
       password: password
     }
-    this.http.post<{token: string,expiresIn: number}>('http://localhost:3000/login', authModel).subscribe(response=>{
+    this.http.post<{token: string,expiresIn: number}>(environment.apiUrl+'/login', authModel).subscribe(response=>{
       const token = response.token;
       this.token = token
       if(token) {
