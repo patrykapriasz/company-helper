@@ -11,7 +11,8 @@ const Product = sequelize.define('product', {
     allowNull: false,
     autoIncrement: true
   },
-  name: Sequelize.STRING
+  name: Sequelize.STRING,
+  symbol: Sequelize.STRING
 })
 
 module.exports = Product;

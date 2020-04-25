@@ -56,6 +56,8 @@ Warehouse.belongsTo(Product);
 Product.hasOne(Warehouse);
 Product.hasOne(ProductParameter);
 ReportItem.belongsTo(ProductParameter);
+Product.hasOne(Report);
+Report.belongsTo(Product);
 
 
 app.use(adminRoute);

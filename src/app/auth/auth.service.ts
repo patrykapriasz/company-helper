@@ -55,7 +55,7 @@ export class AuthService {
     this.token = null;
     this.isAuthenticated = false;
     this.authStatusListener.next(false);
-    this.router.navigate(["/login"]);
+    this.router.navigate(["/"]);
     this.clearAuthData();
     clearTimeout(this.tokenTimer);
   }

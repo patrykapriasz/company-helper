@@ -10,17 +10,19 @@ import { LoginComponent } from './auth/login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthGuard } from './auth/auth.guard';
 import { LaboratoryComponent } from './laboratory/laboratory.component';
+import { LaboratoryReportComponent } from './laboratory/laboratory-report/laboratory-report.component';
 
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
-  { path: 'admin', component: AdminComponent},
-  { path:'admin/user-create', component: UserComponent},
-  { path: 'admin/role-create', component: RoleComponent},
+  { path: 'admin', component: AdminComponent,},
+  { path:'admin/user-create', component: UserComponent, canActivate:[AuthGuard] },
+  { path: 'admin/role-create', component: RoleComponent, canActivate:[AuthGuard] },
   { path: 'manager', component: ManagerComponent, canActivate:[AuthGuard] },
-  { path: 'login', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
-  { path: 'laboratory', component: LaboratoryComponent}
+  { path: 'laboratory', component: LaboratoryComponent, canActivate:[AuthGuard]},
+  { path: 'laboratory/reports', component: LaboratoryReportComponent, canActivate:[AuthGuard]},
+  { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)},
 ];
 
 @NgModule({

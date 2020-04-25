@@ -20,3 +20,22 @@ exports.getAllWarehouses = (req,res,next) => {
       });
     });
 };
+
+exports.getWarehouseByProduct = (req,res,next) => {
+  Warehouse.findAll({
+    where: {
+      productId: req.params.productId
+    }
+  })
+    .then(response => {
+      res.status(200).json({
+        message: 'success',
+        content: response
+      })
+    }).catch(error => {
+      res.status(500).json({
+        message: 'error',
+        content: error
+      })
+    })
+};

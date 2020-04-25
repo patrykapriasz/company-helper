@@ -6,4 +6,6 @@ const router = express.Router();
 
 router.get('/warehouses', warehouseController.getAllWarehouses);
 
+router.get('/warehouses/:productId', warehouseController.getWarehouseByProduct);
+
 module.exports = router;
