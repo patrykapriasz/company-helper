@@ -12,7 +12,8 @@ const Department = sequelize.define('department',{
   name: {
     type: Sequelize.STRING,
     allowNull: false
-  }
+  },
+  symbol: Sequelize.STRING
 });
 
 module.exports = Department;

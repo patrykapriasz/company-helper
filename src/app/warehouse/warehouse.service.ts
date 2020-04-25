@@ -19,6 +19,14 @@ export class WarehouseService {
     });
   };
 
+  getWarehouseByProduct(productId: number) {
+    this.http.get<{message: string, content: Warehouse[]}>(environment.apiUrl+'/warehouses/'+productId).subscribe(result => {
+      console.log(result);
+      this.warehouse = result.content;
+      this.updatedWarehouse.next([...this.warehouse]);
+    })
+  }
+
   getWarehouseUpdated() {
     return this.updatedWarehouse.asObservable();
   }

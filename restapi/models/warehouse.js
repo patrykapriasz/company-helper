@@ -10,6 +10,7 @@ const warehouse = sequelize.define('warehouse',{
     autoIncrement: true
   },
   name: Sequelize.STRING,
+  symbol: Sequelize.STRING
 });
 
 module.exports = warehouse;

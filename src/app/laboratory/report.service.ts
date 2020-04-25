@@ -9,22 +9,57 @@ import { ReportItem } from './report-item.model';
 @Injectable({providedIn: 'root'})
 export class ReportService {
 
+  private report: Report;
+  private updatedReport = new Subject<Report>();
+
   private reports: Report[];
-  private updatedReport = new Subject<Report[]>();
+  private updatedReports = new Subject<Report[]>();
+
+  private reportsShortList: Report[];
+  private updatedreportsShortList = new Subject<Report[]>();
+
 
   constructor(private http: HttpClient){}
 
   createReport(report: Report, reportItem: ReportItem[]){
-
     const reportData = {
       report: report,
       reportItem: reportItem
     }
-    this.http.post<{message: string, content: Report}>(environment.apiUrl+'reports',reportData).subscribe(result => {
+    this.http.post<{message: string, content: Report}>(environment.apiUrl+'/reports',reportData).subscribe(result => {
       this.reports.push(result.content);
-      this.updatedReport.next([...this.reports])
+      this.reportsShortList.unshift(result.content);
+      this.reportsShortList.pop();
+      this.updatedReports.next([...this.reports]);
+      this.updatedreportsShortList.next([...this.reportsShortList]);
     });
+  }
 
+  getReportById(id: number) {
+    this.http.get<{message: string, content: Report}>(environment.apiUrl+'/reports/'+id).subscribe(result => {
+      this.report = result.content;
+      this.updatedReport.next(this.report);
+    })
+  }
+
+  getLastReports(count: number) {
+    this.http.get<{message: string, content: Report[]}>(environment.apiUrl+'/reports/last/'+count).subscribe(result => {
+      console.log(result);
+      this.reportsShortList = result.content,
+      this.updatedreportsShortList.next([...this.reportsShortList])
+    });
+  }
+
+  getUpdatedReport() {
+    return this.updatedReport.asObservable();
+  }
+
+  getUpdatedReports() {
+    return this.updatedReports.asObservable();
+  }
+
+  getUpdatedReportShortList() {
+    return this.updatedreportsShortList.asObservable();
   }
 
 }

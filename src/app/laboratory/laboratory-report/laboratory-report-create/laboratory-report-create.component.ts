@@ -48,6 +48,14 @@ export class LaboratoryReportCreateComponent implements OnInit, OnDestroy {
     });
   }
 
+  getWarehouses(productId: any) {
+    this.warehouseService.getWarehouseByProduct(productId);
+    this.warehousesSubscription = this.warehouseService.getWarehouseUpdated().subscribe(result => {
+
+      this.warehouses = result;
+    });
+  }
+
   addReport(form: NgForm) {
 
     const sampleTaker: User = {
@@ -58,15 +66,21 @@ export class LaboratoryReportCreateComponent implements OnInit, OnDestroy {
       password:null,
       role: null
     }
-    console.log(sampleTaker);
+
+    const subject: Product = {
+      id: form.value.subject,
+      name: null
+    }
     const report:Report = {
       id: null,
       data: new Date(),
       source: form.value.warehouse,
-      author:null,
+      user:null,
       sampleTaker:sampleTaker,
       reportObject:form.value.subject,
-      description: form.value.description
+      description: form.value.description,
+      product: subject,
+      createdAt: null
     }
     this.reportService.createReport(report,this.reportItems);
     form.resetForm();
@@ -92,6 +106,8 @@ export class LaboratoryReportCreateComponent implements OnInit, OnDestroy {
     console.log(this.reportItems);
   }
 
+
+
   ngOnInit(): void {
     this.productService.getAllProducts();
     this.productsSubscription = this.productService.getUpdatedProductListener().subscribe((products: Product[]) => {
@@ -101,11 +117,6 @@ export class LaboratoryReportCreateComponent implements OnInit, OnDestroy {
     this.userService.getSampleTakers();
     this.usersSubscription = this.userService.getusersUpdateListener().subscribe((users: User[]) => {
       this.users = users;
-    });
-
-    this.warehouseService.getAllWarehouse();
-    this.warehousesSubscription = this.warehouseService.getWarehouseUpdated().subscribe(result => {
-      this.warehouses = result;
     });
   }
 
