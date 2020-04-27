@@ -23,6 +23,7 @@ const routes: Routes = [
   { path: 'laboratory', component: LaboratoryComponent, canActivate:[AuthGuard]},
   { path: 'laboratory/reports', component: LaboratoryReportComponent, canActivate:[AuthGuard]},
   { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)},
+  { path: 'laboratory', loadChildren: () => import('./laboratory/laboratory.module').then(m =>m.LaboratoryModule)},
 ];
 
 @NgModule({

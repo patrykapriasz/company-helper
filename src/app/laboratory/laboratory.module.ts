@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { LaboratoryComponent } from './laboratory.component';
 import { LaboratoryReportComponent } from './laboratory-report/laboratory-report.component';
@@ -9,6 +10,7 @@ import { LaboratoryReportListComponent } from './laboratory-report/laboratory-re
 import { LaboratoryReportCardComponent } from './laboratory-report/laboratory-report-card/laboratory-report-card.component';
 import { AngularMaterialModule } from '../angular-material.module';
 import { ReportItemComponent } from './report-item/report-item.component';
+import { LaboratoryRouting } from './laboratory-routing.module';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { ReportItemComponent } from './report-item/report-item.component';
   imports: [
     CommonModule,
     FormsModule,
-    AngularMaterialModule
+    AngularMaterialModule,
+    LaboratoryRouting,
+    FlexLayoutModule
   ]
 })
 export class LaboratoryModule {}

@@ -32,7 +32,6 @@ export class UserService {
     };
     this.http.post<{message:string, content:User}>(environment.apiUrl+'/admin/create-user',user)
       .subscribe(response =>{
-        console.log(response);
         user.id = response.content.id;
         user.login = response.content.login;
         this.users.push(user);

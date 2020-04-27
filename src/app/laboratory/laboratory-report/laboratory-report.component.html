@@ -1,8 +1,8 @@
-<div class="laboratory-container">
-  <div class="laboratory-report">
+<div fxLayout="row" fxLayoutAlign="space-around" fxLayout.xs="column">
+  <div fxFlex="50">
     <app-laboratory-report-create></app-laboratory-report-create>
   </div>
-  <div class="laboratory-card">
-    <app-laboratory-report-card [count]="3"></app-laboratory-report-card>
+  <div fxFlex="30">
+    <app-laboratory-report-card [count]="10"></app-laboratory-report-card>
   </div>
 </div>

@@ -4,7 +4,7 @@
 <mat-menu #menu="matMenu">
   <button mat-menu-item>
     <mat-icon>assignment</mat-icon>
-    <span>Nowy Raport</span>
+    <span (click)="openNewReport()">Nowy Raport</span>
   </button>
   <button mat-menu-item disabled>
     <mat-icon>voicemail</mat-icon>
@@ -15,3 +15,4 @@
     <span>Disable alerts</span>
   </button>
 </mat-menu>
+<router-outlet></router-outlet>

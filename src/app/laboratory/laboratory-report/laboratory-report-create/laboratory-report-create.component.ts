@@ -69,7 +69,8 @@ export class LaboratoryReportCreateComponent implements OnInit, OnDestroy {
 
     const subject: Product = {
       id: form.value.subject,
-      name: null
+      name: null,
+      symbol: null
     }
     const report:Report = {
       id: null,
@@ -124,5 +125,6 @@ export class LaboratoryReportCreateComponent implements OnInit, OnDestroy {
     this.productsSubscription.unsubscribe();
     this.warehousesSubscription.unsubscribe();
     this.usersSubscription.unsubscribe();
+    this.productParametersSubscription.unsubscribe();
   }
 }
