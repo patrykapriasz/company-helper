@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Report } from '../../report.model';
 import { ReportService } from '../../report.service';
 import {Subscription } from 'rxjs';
@@ -8,7 +8,7 @@ import {Subscription } from 'rxjs';
   templateUrl: './laboratory-report-card.component.html',
   styleUrls: ['./laboratory-report-card.component.scss']
 })
-export class LaboratoryReportCardComponent implements OnInit {
+export class LaboratoryReportCardComponent implements OnInit, OnDestroy {
 
   reports: Report[]=[];
   updatedReports: Subscription;
@@ -19,8 +19,11 @@ export class LaboratoryReportCardComponent implements OnInit {
   ngOnInit(): void {
     this.reportService.getLastReports(this.count);
     this.updatedReports = this.reportService.getUpdatedReportShortList().subscribe((reports: Report[]) => {
-      this.reports = reports
+      this.reports = reports;
     })
+  }
+  ngOnDestroy(): void {
+    this.updatedReports.unsubscribe();
   }
 
 }

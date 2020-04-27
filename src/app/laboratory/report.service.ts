@@ -12,7 +12,7 @@ export class ReportService {
   private report: Report;
   private updatedReport = new Subject<Report>();
 
-  private reports: Report[];
+  private reports: Report[] = [];
   private updatedReports = new Subject<Report[]>();
 
   private reportsShortList: Report[];
@@ -27,8 +27,11 @@ export class ReportService {
       reportItem: reportItem
     }
     this.http.post<{message: string, content: Report}>(environment.apiUrl+'/reports',reportData).subscribe(result => {
-      this.reports.push(result.content);
-      this.reportsShortList.unshift(result.content);
+      console.log(result);
+      report.id = result.content.id;
+      report.user = result.content.user;
+      this.reports.push(report);
+      this.reportsShortList.unshift(report);
       this.reportsShortList.pop();
       this.updatedReports.next([...this.reports]);
       this.updatedreportsShortList.next([...this.reportsShortList]);

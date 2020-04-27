@@ -9,25 +9,31 @@
     </mat-card-content>
   </mat-card> -->
 <!-- </div> -->
+<div *ngIf="reports.length > 0">
+  <div *ngFor="let report of reports" style="margin-bottom: 0.2rem ;">
+    <mat-accordion multi="true" >
+      <mat-expansion-panel >
+        <mat-expansion-panel-header>
+          <div class="header-panel">
+            <div class="header-panel-icon">
+              <!-- <fa-icon [icon]="faFlask"></fa-icon> -->
+            </div>
+            <div class="header-panel-user">
+              <p>Raport nr: {{report.id}} {{report.createdAt | date:'yyyy-MM-dd'}} {{report.product.symbol}}</p>
+            </div>
+          </div>
+        </mat-expansion-panel-header>
+          <p>Sporządził: {{report.user.lastname}} {{report.user.firstname}}</p>
 
-<mat-accordion multi="true" *ngIf="reports.length > 0">
-  <mat-expansion-panel *ngFor="let report of reports">
-    <mat-expansion-panel-header>
-      <div class="header-panel">
-        <div class="header-panel-icon">
-          <!-- <fa-icon [icon]="faFlask"></fa-icon> -->
-        </div>
-        <div class="header-panel-user">
-          <p>Raport nr: {{report.id}} {{report.createdAt | date:'yyyy-MM-dd'}}</p>
-        </div>
-      </div>
-    </mat-expansion-panel-header>
-      <p>Sporządził: {{report.user.lastname}} {{report.user.firstname}}</p>
+        <mat-action-row>
+          <button mat-button color="success">Edytuj</button>
+          <button mat-button color="warn">Usuń</button>
+        </mat-action-row>
+      </mat-expansion-panel>
+    </mat-accordion>
 
-    <mat-action-row>
-      <button mat-button color="success">Edytuj</button>
-      <button mat-button color="warn">Usuń</button>
-    </mat-action-row>
-  </mat-expansion-panel>
-</mat-accordion>
+  </div>
+  <br/>
+</div>
+
 

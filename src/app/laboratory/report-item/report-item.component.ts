@@ -18,7 +18,6 @@ export class ReportItemComponent implements OnInit {
   constructor() { }
 
   addParameterValue(event: number) {
-    console.log("event: "+event);
     if(event) {
       this.reportItem = {
         id: null,

@@ -1,7 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 
 import { AppComponent } from './app.component';
@@ -47,7 +48,10 @@ import { AuthModule } from './auth/auth.module';
     FontAwesomeModule,
     AngularMaterialModule,
     LaboratoryModule,
-    AuthModule
+    AuthModule,
+    FlexLayoutModule,
+    ReactiveFormsModule,
+
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi:true}],
   bootstrap: [AppComponent]

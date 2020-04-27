@@ -3,8 +3,8 @@
   <h2>RAPORT Z BADANIA </h2>
   <br>
   <form (submit)="addReport(reportForm)" #reportForm="ngForm">
-    <div class="report-card">
-      <div class="report-card-basic">
+    <div fxLayout="row" fxLayoutAlign="space-evenly" fxLayout.xs="column">
+      <div>
         <mat-form-field appearance="legacy">
           <mat-label>Przedmiot badania</mat-label>
           <mat-select name="subject" required ngModel #subject="ngModel" (selectionChange)="getWarehouses(subject.value)">
@@ -38,7 +38,7 @@
         <br>
         <br>
       </div>
-      <div class="report-card-params">
+      <div>
         <h4>Parametry</h4>
         <div *ngIf="productParameters.length>0">
           <app-report-item *ngFor="let productParameter of productParameters" [productParameter]= "productParameter" (finishedReaserch)="addReportItem($event)"></app-report-item>
