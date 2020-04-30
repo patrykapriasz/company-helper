@@ -14,6 +14,10 @@ export class LaboratoryComponent implements OnInit {
     this.router.navigate(["reports"]);
   }
 
+  openReportCardsPanel() {
+    this.router.navigate(["reports/card-list"]);
+  }
+
   ngOnInit(): void {
   }
 

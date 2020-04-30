@@ -65,13 +65,14 @@ export class LaboratoryReportCreateComponent implements OnInit, OnDestroy {
       login: null,
       password:null,
       role: null
-    }
+    };
 
     const subject: Product = {
       id: form.value.subject,
       name: null,
       symbol: null
-    }
+    };
+
     const report:Report = {
       id: null,
       data: new Date(),
@@ -81,22 +82,24 @@ export class LaboratoryReportCreateComponent implements OnInit, OnDestroy {
       reportObject:form.value.subject,
       description: form.value.description,
       product: subject,
-      createdAt: null
-    }
+      createdAt: null,
+      warehouse: null,
+      reportItems: null
+    };
     this.reportService.createReport(report,this.reportItems);
     form.resetForm();
   };
 
   addReportItem(reportItem: ReportItem) {
     const existingItem = this.reportItems.find(item => {
-      if(item.parameter.id === reportItem.parameter.id) {
+      if(item.productParameter.id === reportItem.productParameter.id) {
         return item;
       }
     })
     //const existingItem = this.reportItems.some(item=>item.parameter.id === reportItem.parameter.id)
     if(existingItem){
       if(existingItem.value !==reportItem.value){
-        const index = this.reportItems.findIndex(item=>item.parameter.id === reportItem.parameter.id)
+        const index = this.reportItems.findIndex(item=>item.productParameter.id === reportItem.productParameter.id)
         this.reportItems.splice(index,1);
         this.reportItems.push(reportItem);
       }
@@ -106,8 +109,6 @@ export class LaboratoryReportCreateComponent implements OnInit, OnDestroy {
     }
     console.log(this.reportItems);
   }
-
-
 
   ngOnInit(): void {
     this.productService.getAllProducts();
@@ -122,9 +123,13 @@ export class LaboratoryReportCreateComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.productsSubscription.unsubscribe();
-    this.warehousesSubscription.unsubscribe();
+    if(this.warehousesSubscription) {
+      this.warehousesSubscription.unsubscribe();
+    }
+    if(this.productParametersSubscription) {
+      this.productParametersSubscription.unsubscribe();
+    }
     this.usersSubscription.unsubscribe();
-    this.productParametersSubscription.unsubscribe();
+    this.productsSubscription.unsubscribe();
   }
 }

@@ -2,6 +2,9 @@ const Report = require('../models/report');
 const ReportItem = require('../models/report-item');
 const User = require('../models/user');
 const Product = require('../models/product');
+const Warehouse = require('../models/warehouse');
+const ProductParameter = require('../models/productParameters');
+
 
 exports.addReport = (req,res,next) => {
   Report.create({
@@ -12,7 +15,6 @@ exports.addReport = (req,res,next) => {
     productId: req.body.report.product.id
 
   }).then(result => {
-
     for(let reportItem of req.body.reportItem) {
       ReportItem.create({
         reportId: result.id,
@@ -44,7 +46,7 @@ exports.getReport = (req,res,next) => {
   console.log("req.parmas.id")
   Report.findByPk(req.params.id, {
     include: [
-      {model: User}
+      { model: User }
     ]
   }).then(result => {
     res.status(200).json({
@@ -63,8 +65,10 @@ exports.getLastReports = (req,res,next) => {
   const param = Number(req.params.count);
   Report.findAll({
     include: [
-      {model:User},
-      {model: Product}
+      { model:User },
+      { model: Product },
+      { model: Warehouse} ,
+      { model: ReportItem, include: {model: ProductParameter} }
     ],
     order: [
       ['createdAt', 'DESC']

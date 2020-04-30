@@ -13,8 +13,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
-import { MatSidenavModule } from '@angular/material/sidenav'
-import { MatListModule} from '@angular/material/list'
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule} from '@angular/material/list';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   imports: [
@@ -32,7 +33,8 @@ import { MatListModule} from '@angular/material/list'
     MatMenuModule,
     MatIconModule,
     MatSidenavModule,
-    MatListModule
+    MatListModule,
+    MatDialogModule,
   ],
   exports: [
     AppRoutingModule,
@@ -49,7 +51,8 @@ import { MatListModule} from '@angular/material/list'
     MatMenuModule,
     MatIconModule,
     MatSidenavModule,
-    MatListModule
+    MatListModule,
+    MatDialogModule,
   ]
 
 })

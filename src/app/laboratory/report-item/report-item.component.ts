@@ -21,7 +21,7 @@ export class ReportItemComponent implements OnInit {
     if(event) {
       this.reportItem = {
         id: null,
-        parameter: this.productParameter,
+        productParameter: this.productParameter,
         value: event
       };
       this.finishedReaserch.emit(this.reportItem);
