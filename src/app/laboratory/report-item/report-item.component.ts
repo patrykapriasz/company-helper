@@ -20,6 +20,7 @@ export class ReportItemComponent implements OnInit {
   constructor() { }
 
   addParameterValue(event: number) {
+
     if(event) {
       this.reportItem = {
         id: null,
