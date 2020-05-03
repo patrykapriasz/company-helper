@@ -1,14 +1,4 @@
-<!-- <div class="report-card" > -->
-  <!-- <mat-card *ngFor='let report of reports'>
-    <mat-card-title class="report-card-title" color="error">
-      Raport nr {{report.id}}
-    </mat-card-title>
-    <mat-card-subtitle>{{report.product.name}} | {{report.description}}</mat-card-subtitle>
-    <mat-card-content>
-      <p>Utworzony: {{report.createdAt | date:'yyyy-MM-dd'}}</p>
-    </mat-card-content>
-  </mat-card> -->
-<!-- </div> -->
+
 <div *ngIf="reports.length > 0">
   <div *ngFor="let report of reports" style="margin-bottom: 0.2rem ;">
     <mat-accordion multi="true" >
@@ -26,8 +16,8 @@
           <p>Sporządził: {{report.user.lastname}} {{report.user.firstname}}</p>
 
         <mat-action-row>
-          <button mat-button color="success">Edytuj</button>
-          <button mat-button color="warn">Usuń</button>
+          <!-- <button mat-button color="success">Edytuj</button>
+          <button mat-button color="warn">Usuń</button> -->
         </mat-action-row>
       </mat-expansion-panel>
     </mat-accordion>

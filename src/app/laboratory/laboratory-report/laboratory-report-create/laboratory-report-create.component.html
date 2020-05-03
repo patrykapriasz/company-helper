@@ -7,7 +7,7 @@
       <div>
         <mat-form-field appearance="legacy">
           <mat-label>Przedmiot badania</mat-label>
-          <mat-select name="subject" required ngModel #subject="ngModel" (selectionChange)="getWarehouses(subject.value)">
+          <mat-select name="subject" required [ngModel]="report?.product.id" #subject="ngModel" (selectionChange)="getWarehouses(subject.value)">
             <mat-option *ngFor="let product of products let i = index" [value]="products[i].id" (click)="getParameters(product.id)">{{products[i].name}}</mat-option>
           </mat-select>
           <mat-error *ngIf="subject.invalid">Produkt badań jest wymagana</mat-error>
@@ -25,7 +25,7 @@
         <br>
         <mat-form-field appearance="legacy">
           <mat-label>Źródło</mat-label>
-          <mat-select name="warehouse" required ngModel #warehouse="ngModel" >
+          <mat-select name="warehouse" required [ngModel]="report?.warehouse.id" #warehouse="ngModel" >
             <mat-option *ngFor="let warehouse of warehouses let i = index" [value]="warehouses[i].id">{{warehouses[i].name}}</mat-option>
           </mat-select>
           <mat-error *ngIf="warehouse.invalid">Źródło jest wymagana</mat-error>
@@ -33,7 +33,7 @@
         <br>
         <br>
         <mat-form-field appearance="legacy">
-          <textarea matInput name="description" placeholder="opis/uwagi" ngModel #description="ngModel"></textarea>
+          <textarea matInput name="description" placeholder="opis/uwagi" [ngModel]='report?.description' #description="ngModel"></textarea>
         </mat-form-field>
         <br>
         <br>
@@ -41,14 +41,20 @@
       <div>
         <h4>Parametry</h4>
         <div *ngIf="productParameters.length>0">
-          <app-report-item *ngFor="let productParameter of productParameters" [productParameter]= "productParameter" (finishedReaserch)="addReportItem($event)"></app-report-item>
+          <app-report-item *ngFor="let productParameter of productParameters" [productParameter]= "productParameter" (finishedReaserch)="addReportItem($event)" ></app-report-item>
           <br>
+        </div>
+        <div *ngIf="mode==='edit'">
+          <app-report-item *ngFor="let reportItem of reportItems" [existingReportItem]="reportItem" (finishedReaserch)="updateReportItem($event, reportItem)" ></app-report-item>
         </div>
       </div>
     </div>
     <br/>
     <br/>
-      <button mat-raised-button type="submit" color="warn">Utwórz raport</button>
+    <div mat-dialog-actions>
+      <button *ngIf="mode==='create'" mat-raised-button type="submit" color="warn">Utwórz raport</button>
+      <button *ngIf="mode==='edit'" mat-raised-button type="submit" color="success">Edytuj raport</button>
+    </div>
   </form>
 </mat-card>
 

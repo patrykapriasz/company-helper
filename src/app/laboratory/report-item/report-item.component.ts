@@ -13,6 +13,8 @@ export class ReportItemComponent implements OnInit {
   @Input()productParameter: ProductParameter;
   @Output()finishedReaserch = new EventEmitter<ReportItem>();
 
+  @Input() existingReportItem: ReportItem
+
   reportItem: ReportItem;
 
   constructor() { }
@@ -29,6 +31,7 @@ export class ReportItemComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
   }
 
 }

@@ -4,6 +4,7 @@ import { ReportService } from '../report.service';
 import { Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { ReportDialogComponent } from '../report-dialog/report-dialog.component';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-report-card',
@@ -12,7 +13,10 @@ import { ReportDialogComponent } from '../report-dialog/report-dialog.component'
 })
 export class ReportCardComponent implements OnInit, OnDestroy {
 
-  count: number = 10;
+  totalCard: number = 100;
+  cardPerSite: number = 5;
+  currentPage: number = 1;
+  cardPerSitesOptions = [5,10];
 
   reports: Report[];
   reportsSubscriber: Subscription
@@ -33,8 +37,14 @@ export class ReportCardComponent implements OnInit, OnDestroy {
     });
   }
 
+  onChangePage(event: PageEvent) {
+    this.currentPage = event.pageIndex + 1;
+    this.cardPerSite = event.pageSize;
+    this.reportService.getPaginatedReports(this.cardPerSite,this.currentPage);
+  }
+
   ngOnInit(): void {
-    this.reportService.getLastReports(this.count);
+    this.reportService.getPaginatedReports(this.cardPerSite,this.currentPage);
     this.reportsSubscriber = this.reportService.getUpdatedReportShortList().subscribe((reports: Report[]) => {
       this.reports = reports
     })

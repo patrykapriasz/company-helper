@@ -12,12 +12,11 @@
         <p>{{report.description}}</p>
       </mat-card-content>
       <mat-card-actions>
-        <button mat-button color="primary">Akceptuj</button>
-        <button mat-button color="warn">Edytuj</button>
+        <!-- <button mat-button color="primary">Akceptuj</button>
+        <button mat-button color="warn">Edytuj</button> -->
       </mat-card-actions>
     </mat-card>
   </div>
 </div>
-
-
+<mat-paginator [length]="totalCard" [pageSize]="cardPerSite" [pageSizeOptions]="cardPerSitesOptions" (page)="onChangePage($event)"></mat-paginator>
 

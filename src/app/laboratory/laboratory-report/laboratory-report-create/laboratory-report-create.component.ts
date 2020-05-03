@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { Report } from '../../report.model';
 import { NgForm } from '@angular/forms';
 import { User } from 'src/app/user/user.model';
@@ -12,6 +12,7 @@ import { ProductParameter } from 'src/app/share/models/productParameter.model';
 import { ProductParameterService } from 'src/app/share/services/productParameter.service';
 import { ReportItem } from '../../report-item.model';
 import { ReportService } from '../../report.service';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 
 
 @Component({
@@ -21,7 +22,11 @@ import { ReportService } from '../../report.service';
 })
 export class LaboratoryReportCreateComponent implements OnInit, OnDestroy {
 
+  reportId: Number;
+  createForm: NgForm;
+
   report: Report;
+  reportSubscription: Subscription;
   users: User[] = [];
   usersSubscription: Subscription;
   products: Product[] = [];
@@ -34,11 +39,14 @@ export class LaboratoryReportCreateComponent implements OnInit, OnDestroy {
 
   reportItems: ReportItem[]=[];
 
+  mode = "create";
+
   constructor(private productService: ProductService,
     private userService: UserService,
     private warehouseService: WarehouseService,
     private productParameterService: ProductParameterService,
-    private reportService: ReportService
+    private reportService: ReportService,
+    private route: ActivatedRoute
     ) { }
 
   getParameters(productId: number) {
@@ -57,7 +65,6 @@ export class LaboratoryReportCreateComponent implements OnInit, OnDestroy {
   }
 
   addReport(form: NgForm) {
-
     const sampleTaker: User = {
       id: form.value.sampleTaker,
       firstname:null,
@@ -86,7 +93,14 @@ export class LaboratoryReportCreateComponent implements OnInit, OnDestroy {
       warehouse: null,
       reportItems: null
     };
-    this.reportService.createReport(report,this.reportItems);
+    if(this.mode === 'create') {
+      this.reportService.createReport(report,this.reportItems);
+    } else {
+      // console.log(report);
+      // console.log(this.reportItems);
+      //this.reportService.updateReport(report,this.reportItems);
+    }
+
     form.resetForm();
   };
 
@@ -96,7 +110,6 @@ export class LaboratoryReportCreateComponent implements OnInit, OnDestroy {
         return item;
       }
     })
-    //const existingItem = this.reportItems.some(item=>item.parameter.id === reportItem.parameter.id)
     if(existingItem){
       if(existingItem.value !==reportItem.value){
         const index = this.reportItems.findIndex(item=>item.productParameter.id === reportItem.productParameter.id)
@@ -107,10 +120,28 @@ export class LaboratoryReportCreateComponent implements OnInit, OnDestroy {
     } else {
       this.reportItems.push(reportItem);
     }
-    console.log(this.reportItems);
+  }
+
+  updateReportItem(event,reportItem) {
+    console.log(reportItem);
   }
 
   ngOnInit(): void {
+
+    this.route.paramMap.subscribe((paramMap: ParamMap) => {
+      if(paramMap.has('reportId')) {
+        this.mode = "edit";
+        this.reportId = Number(paramMap.get('reportId'))
+        this.report = this.reportService.getReportById(this.reportId);
+        this.reportItems = this.report.reportItems;
+        this.getWarehouses(this.report.product.id);
+
+      } else {
+        this.mode = 'create';
+        this.reportId = null;
+      }
+    })
+
     this.productService.getAllProducts();
     this.productsSubscription = this.productService.getUpdatedProductListener().subscribe((products: Product[]) => {
       this.products = products;
@@ -128,6 +159,9 @@ export class LaboratoryReportCreateComponent implements OnInit, OnDestroy {
     }
     if(this.productParametersSubscription) {
       this.productParametersSubscription.unsubscribe();
+    }
+    if(this.reportSubscription) {
+      this.reportSubscription.unsubscribe();
     }
     this.usersSubscription.unsubscribe();
     this.productsSubscription.unsubscribe();

@@ -17,10 +17,9 @@ export class LaboratoryReportListItemComponent implements OnInit, OnDestroy {
   constructor(private reportService: ReportService) { }
 
   ngOnInit(): void {
-    this.reportService.getLastReports(this.count);
+    this.reportService.getPaginatedReports(this.count,1);
     this.updatedReports = this.reportService.getUpdatedReportShortList().subscribe((reports: Report[]) => {
       this.reports = reports;
-      console.log(this.reports);
     })
   }
   ngOnDestroy(): void {
