@@ -26,6 +26,7 @@ export class ReportService {
       report: report,
       reportItem: reportItem
     }
+
     this.http.post<{message: string, content: Report}>(environment.apiUrl+'/reports',reportData).subscribe(result => {
       report.id = result.content.id;
       report.user = result.content.user;

@@ -15,10 +15,11 @@ exports.addReport = (req,res,next) => {
     productId: req.body.report.product.id
 
   }).then(result => {
+    console.log(req.body.reportItem);
     for(let reportItem of req.body.reportItem) {
       ReportItem.create({
         reportId: result.id,
-        productParameterId: reportItem.parameter.id,
+        productParameterId: reportItem.productParameter.id,
         value:reportItem.value
       }).then(result => {
 
