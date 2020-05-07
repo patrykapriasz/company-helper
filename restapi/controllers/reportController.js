@@ -15,7 +15,6 @@ exports.addReport = (req,res,next) => {
     productId: req.body.report.product.id
 
   }).then(result => {
-    console.log(req.body.reportItem);
     for(let reportItem of req.body.reportItem) {
       ReportItem.create({
         reportId: result.id,
@@ -92,7 +91,8 @@ exports.getPaginatedReports = (req,res,next) => {
 }
 
 exports.editReport = (req,res,next) => {
-  const report = req.body;
+  const report = req.body.report;
+  const reportItems = req.body.reportItems;
 
   const existingReport = Report.findByPk(report.body.id);
 
@@ -105,6 +105,16 @@ exports.editReport = (req,res,next) => {
   }, {
     where:report.id
   }).then(result => {
+
+
+    // for(let reportItem of reportItems) {
+    //   ReportItem.update({
+    //     value = reportItem.value
+    //   }, {
+    //     where: reportItem.id
+    //   })
+    // }
+
     res.status(200).json({
       message: 'success',
       content: result

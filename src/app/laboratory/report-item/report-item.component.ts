@@ -12,10 +12,12 @@ export class ReportItemComponent implements OnInit {
 
   @Input()productParameter: ProductParameter;
   @Output()finishedReaserch = new EventEmitter<ReportItem>();
+  @Input() parameterValue: number;
 
   @Input() existingReportItem: ReportItem
 
   reportItem: ReportItem;
+  parameterExistingValue: number;
 
   constructor() { }
 
@@ -32,7 +34,6 @@ export class ReportItemComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
   }
 
 }

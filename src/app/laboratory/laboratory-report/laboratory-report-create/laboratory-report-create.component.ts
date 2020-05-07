@@ -50,10 +50,10 @@ export class LaboratoryReportCreateComponent implements OnInit, OnDestroy {
     ) { }
 
   getParameters(productId: number) {
-    this.productParameterService.getProductParameter(productId);
-    this.productParametersSubscription = this.productParameterService.getUpdatedProductParameter().subscribe((productParametes: ProductParameter[]) => {
-      this.productParameters = productParametes
-    });
+      this.productParameterService.getProductParameter(productId);
+      this.productParametersSubscription = this.productParameterService.getUpdatedProductParameter().subscribe((productParametes: ProductParameter[]) => {
+        this.productParameters = productParametes
+      });
   }
 
   getWarehouses(productId: any) {
@@ -80,7 +80,7 @@ export class LaboratoryReportCreateComponent implements OnInit, OnDestroy {
       symbol: null
     };
 
-    const report:Report = {
+    let report:Report = {
       id: null,
       data: new Date(),
       source: form.value.warehouse,
@@ -96,6 +96,7 @@ export class LaboratoryReportCreateComponent implements OnInit, OnDestroy {
     if(this.mode === 'create') {
       this.reportService.createReport(report,this.reportItems);
     } else {
+      report.id = this.report.id;
       // console.log(report);
       // console.log(this.reportItems);
       //this.reportService.updateReport(report,this.reportItems);
@@ -111,7 +112,7 @@ export class LaboratoryReportCreateComponent implements OnInit, OnDestroy {
       }
     })
     if(existingItem){
-      if(existingItem.value !==reportItem.value){
+      if(existingItem.value !== reportItem.value){
         const index = this.reportItems.findIndex(item=>item.productParameter.id === reportItem.productParameter.id)
         this.reportItems.splice(index,1);
         this.reportItems.push(reportItem);
@@ -120,10 +121,30 @@ export class LaboratoryReportCreateComponent implements OnInit, OnDestroy {
     } else {
       this.reportItems.push(reportItem);
     }
+    console.log(this.reportItems);
   }
 
-  updateReportItem(event,reportItem) {
-    console.log(reportItem);
+  updateReportItem(event,productParam: ProductParameter) {
+    const existingItem = this.reportItems.find(item => {
+      if(item.productParameter.id === productParam.id) {
+        item.value = event.value
+      }
+    });
+
+    console.log(this.reportItems);
+  }
+
+
+  setParameterValue(parameter: ProductParameter) {
+    let existingValue = 0;
+
+    this.reportItems.find(item => {
+      if(item.productParameter.id=== parameter.id) {
+        existingValue =  item.value;
+      }
+    });
+
+    return existingValue;
   }
 
   ngOnInit(): void {
@@ -131,25 +152,27 @@ export class LaboratoryReportCreateComponent implements OnInit, OnDestroy {
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       if(paramMap.has('reportId')) {
         this.mode = "edit";
-        this.reportId = Number(paramMap.get('reportId'))
+        this.reportId = Number(paramMap.get('reportId'));
         this.report = this.reportService.getReportById(this.reportId);
         this.reportItems = this.report.reportItems;
         this.getWarehouses(this.report.product.id);
-
+        this.getParameters(this.report.product.id);
       } else {
         this.mode = 'create';
         this.reportId = null;
+
+        this.productService.getAllProducts();
+        this.productsSubscription = this.productService.getUpdatedProductListener().subscribe((products: Product[]) => {
+          this.products = products;
+          console.log(this.products);
+        });
+
+        this.userService.getSampleTakers();
+        this.usersSubscription = this.userService.getusersUpdateListener().subscribe((users: User[]) => {
+          this.users = users;
+        });
+
       }
-    })
-
-    this.productService.getAllProducts();
-    this.productsSubscription = this.productService.getUpdatedProductListener().subscribe((products: Product[]) => {
-      this.products = products;
-    });
-
-    this.userService.getSampleTakers();
-    this.usersSubscription = this.userService.getusersUpdateListener().subscribe((users: User[]) => {
-      this.users = users;
     });
   }
 
@@ -163,7 +186,11 @@ export class LaboratoryReportCreateComponent implements OnInit, OnDestroy {
     if(this.reportSubscription) {
       this.reportSubscription.unsubscribe();
     }
-    this.usersSubscription.unsubscribe();
-    this.productsSubscription.unsubscribe();
+    if(this.productsSubscription) {
+      this.productsSubscription.unsubscribe();
+    }
+    if(this.usersSubscription){
+      this.usersSubscription.unsubscribe();
+    }
   }
 }

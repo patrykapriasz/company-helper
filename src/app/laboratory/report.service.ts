@@ -41,11 +41,11 @@ export class ReportService {
   updateReport(report: Report, reportItem: ReportItem[]) {
     const reportData = {
       report: report,
-      reportItem: reportItem
+      reportItems: reportItem
     }
 
-    this.http.patch<{message: string, content: {report:Report, reportItem:ReportItem[]}}>(environment.apiUrl+'/reports/edit'+report.id,reportData).subscribe(result=> {
-
+    this.http.patch<{message: string, content: {report:Report, reportItems:ReportItem[]}}>(environment.apiUrl+'/reports/edit'+report.id,reportData).subscribe(result=> {
+      console.log(result);
     })
   }
 

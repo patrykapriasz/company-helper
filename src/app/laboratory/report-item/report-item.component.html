@@ -1,12 +1,12 @@
 <div *ngIf="productParameter">
   <mat-form-field class="example-full-width">
-    <mat-label>{{productParameter?.name}}</mat-label>
-    <input matInput type="number" (focusout)="addParameterValue($event.target.value)">
+    <mat-label>{{productParameter.name}}</mat-label>
+    <input matInput type="number" (focusout)="addParameterValue($event.target.value)" [ngModel]="parameterValue">
   </mat-form-field>
 </div>
-<div *ngIf="existingReportItem">
+<!-- <div *ngIf="existingReportItem">
   <mat-form-field class="example-full-width">
-    <mat-label>{{existingReportItem.productParameter.name}}</mat-label>
-    <input matInput type="number" (focusout)="addParameterValue($event.target.value)" [ngModel]="existingReportItem?.value">
+    <mat-label>{{existingReportItem.productParameter.name}}</mat-label> -->
+    <!-- <input matInput type="number" (focusout)="addParameterValue($event.target.value)" [ngModel]="existingReportItem?.value">
   </mat-form-field>
-</div>
+</div> -->

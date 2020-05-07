@@ -11,7 +11,7 @@ const routes: Routes = [
       { path: 'reports/card-list', component: ReportCardComponent },
       { path: 'dashboard', component: LaboratoryDashboardComponent },
       { path: 'reports', component:LaboratoryReportComponent },
-      { path: 'reports/:reportId', component: LaboratoryReportComponent},
+      { path: 'reports/edit/:reportId', component: LaboratoryReportComponent},
   ]},
 ]
 
