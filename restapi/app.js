@@ -39,10 +39,13 @@ app.use((req,res,next)=>{
 
 User.belongsTo(Role);
 Role.hasMany(User);
+
 Department.hasMany(Task);
 Status.hasMany(Task);
+
 Report.hasMany(ReportItem);
 ReportItem.belongsTo(Report);
+
 User.hasMany(Report);
 Warehouse.hasMany(Report);
 Report.belongsTo(Warehouse);

@@ -5,7 +5,7 @@
   <form (submit)="addReport(reportForm)" #reportForm="ngForm">
     <div fxLayout="row" fxLayoutAlign="space-evenly" fxLayout.xs="column">
       <div>
-        <span *ngIf="mode === 'edit'"><b>{{report.product.name}}</b></span>
+        <span *ngIf="mode === 'edit'"><b>{{report?.product.name}}</b></span>
         <mat-form-field appearance="legacy" *ngIf="mode==='create'">
           <mat-label>Przedmiot badania</mat-label>
           <mat-select name="subject" required [ngModel]="report?.product.id" #subject="ngModel" (selectionChange)="getWarehouses(subject.value)">
@@ -17,7 +17,7 @@
         <br>
         <mat-form-field appearance="legacy">
           <mat-label>Próbobiorca</mat-label>
-          <mat-select name="sampleTaker" required ngModel #sampleTaker="ngModel">
+          <mat-select name="sampleTaker" required [ngModel]="report?.sampleTaker.id" #sampleTaker="ngModel">
             <mat-option *ngFor="let user of users let i = index" [value]="users[i].id">{{users[i].firstname}} {{users[i].lastname}}</mat-option>
           </mat-select>
           <mat-error *ngIf="sampleTaker.invalid">Próbobiorca jest wymagana</mat-error>

@@ -38,4 +38,18 @@ exports.getSampleTakers = (req,res,next) => {
     });
 }
 
+exports.getUser = (req,res,next) => {
+  User.findByPk(req.params.id).then(result => {
+    res.status(200).json({
+      message: 'success',
+      content: result
+    })
+  }).catch(error => {
+    res.status(500).json({
+      message: 'error',
+      content: error
+    })
+  })
+}
+
 

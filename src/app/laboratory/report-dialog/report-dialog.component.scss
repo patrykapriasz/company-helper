@@ -3,5 +3,18 @@
 
   .dialog-content-item {
     margin-bottom: 1rem;
+    width: 100%;
+
+    .parameter-value {
+      width: 50%;
+      //margin-right: 0;
+    }
+
+    .parameter-name {
+      width: 50%;
+    }
+
   }
 }
+
+

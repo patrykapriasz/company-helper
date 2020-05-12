@@ -15,4 +15,5 @@ export interface Report {
   createdAt: Date;
   warehouse: Warehouse;
   reportItems: ReportItem[];
+  sampleTakerId:number;
 }

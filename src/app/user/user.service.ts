@@ -13,9 +13,10 @@ export class UserService {
   private users: User[];
   private updatedUser = new Subject<User[]>();
 
-  constructor(private http: HttpClient){
+  private user: User;
+  private updatedOneUser = new Subject<User>();
 
-  }
+  constructor(private http: HttpClient){}
 
   addNewUser(firstname:string, lastname:string,role:number, password: string){
     const userRole:Role = {
@@ -51,9 +52,20 @@ export class UserService {
       this.users = response.content;
       this.updatedUser.next([...this.users])
     });
-  }
+  };
+
+  getUser(id: number) {
+    this.http.get<{message:string, content: User}>(environment.apiUrl+'/users/'+id).subscribe(response => {
+      this.user = response.content;
+      this.updatedOneUser.next(this.user);
+    })
+  };
 
   getusersUpdateListener() {
     return this.updatedUser.asObservable();
+  };
+
+  getUserUpdateListener() {
+    return this.updatedOneUser.asObservable();
   }
 }

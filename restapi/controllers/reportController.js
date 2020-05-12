@@ -43,20 +43,37 @@ exports.addReport = (req,res,next) => {
 };
 
 exports.getReport = (req,res,next) => {
-  console.log("req.parmas.id")
+
+  let existingReport;
+
   Report.findByPk(req.params.id, {
     include: [
-      { model: User }
+      { model: User },
+      { model: Product },
+      { model: Warehouse} ,
+      { model: ReportItem, include: {model: ProductParameter} },
     ]
   }).then(result => {
-    res.status(200).json({
+    existingReport = result;
+    samplerTakerId = result.sampleTakerId;
+
+    User.findByPk(samplerTakerId).then(result=> {
+      existingReport.SamplerTaker = result;
+      console.log(existingReport);
+      res.status(200).json({
       message: 'success',
-      content: result
+      content: existingReport
     })
+    })
+
+    // res.status(200).json({
+    //   message: 'success',
+    //   content: result
+    // })
   }).catch(error => {
     res.status(500).json({
       message: 'error',
-      content: error
+      content: existingReport
     });
   })
 };
@@ -69,7 +86,7 @@ exports.getPaginatedReports = (req,res,next) => {
       { model:User },
       { model: Product },
       { model: Warehouse} ,
-      { model: ReportItem, include: {model: ProductParameter} }
+      { model: ReportItem, include: {model: ProductParameter} },
     ],
     order: [
       ['createdAt', 'DESC']
@@ -93,27 +110,24 @@ exports.getPaginatedReports = (req,res,next) => {
 exports.editReport = (req,res,next) => {
   const report = req.body.report;
   const reportItems = req.body.reportItems;
-
-  const existingReport = Report.findByPk(report.body.id);
+  console.log(req.userData);
 
   Report.update({
     userId: req.userData.userId,
-    warehouseId: req.body.report.source || existingReport.warehouseId,
-    sampleTakerId: req.body.report.sampleTaker.id || existingReport.sampleTakerId,
-    description: req.body.report.description || existingReport.description,
-    productId: req.body.report.product.id || existingReport.productId
+    warehouseId: req.body.report.source,
+    sampleTakerId: req.body.report.sampleTaker.id,
+    description: req.body.report.description,
+    productId: req.body.report.product.id
   }, {
-    where:report.id
+    where: { id: report.id}
   }).then(result => {
-
-
-    // for(let reportItem of reportItems) {
-    //   ReportItem.update({
-    //     value = reportItem.value
-    //   }, {
-    //     where: reportItem.id
-    //   })
-    // }
+    for(let reportItem of reportItems) {
+      ReportItem.update({
+        value: reportItem.value
+      }, {
+        where: {id:reportItem.id}
+      }).then()
+    }
 
     res.status(200).json({
       message: 'success',

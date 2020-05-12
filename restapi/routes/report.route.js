@@ -11,6 +11,6 @@ router.get('/reports/:id',reportController.getReport);
 
 router.get('/reports/last/:limitPerSite/:siteIndex', reportController.getPaginatedReports);
 
-router.patch('/reports/edit/:reportId', reportController.editReport);
+router.patch('/reports/edit/:reportId',checkAuth, reportController.editReport);
 
 module.exports = router;

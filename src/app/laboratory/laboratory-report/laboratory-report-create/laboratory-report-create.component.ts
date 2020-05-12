@@ -36,6 +36,7 @@ export class LaboratoryReportCreateComponent implements OnInit, OnDestroy {
   showParamOption: boolean = false;
   productParameters: ProductParameter[] = [];
   productParametersSubscription: Subscription;
+  userSampleTaker: User;
 
   reportItems: ReportItem[]=[];
 
@@ -71,7 +72,7 @@ export class LaboratoryReportCreateComponent implements OnInit, OnDestroy {
       lastname:null,
       login: null,
       password:null,
-      role: null
+      role: null,
     };
 
     const subject: Product = {
@@ -91,15 +92,14 @@ export class LaboratoryReportCreateComponent implements OnInit, OnDestroy {
       product: subject,
       createdAt: null,
       warehouse: null,
-      reportItems: null
+      reportItems: null,
+      sampleTakerId: null
     };
     if(this.mode === 'create') {
       this.reportService.createReport(report,this.reportItems);
     } else {
       report.id = this.report.id;
-      // console.log(report);
-      // console.log(this.reportItems);
-      //this.reportService.updateReport(report,this.reportItems);
+      this.reportService.updateReport(report,this.reportItems);
     }
 
     form.resetForm();
@@ -130,8 +130,6 @@ export class LaboratoryReportCreateComponent implements OnInit, OnDestroy {
         item.value = event.value
       }
     });
-
-    console.log(this.reportItems);
   }
 
 
@@ -147,16 +145,36 @@ export class LaboratoryReportCreateComponent implements OnInit, OnDestroy {
     return existingValue;
   }
 
+  getUser(id: number) {
+    let sampleTaker: User=null;
+    const existing = this.users.find((user)=>{
+      if(user.id === id) {
+        sampleTaker = user
+      }
+    })
+    console.log(sampleTaker);
+    return sampleTaker;
+  }
+
   ngOnInit(): void {
 
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       if(paramMap.has('reportId')) {
         this.mode = "edit";
-        this.reportId = Number(paramMap.get('reportId'));
-        this.report = this.reportService.getReportById(this.reportId);
-        this.reportItems = this.report.reportItems;
-        this.getWarehouses(this.report.product.id);
-        this.getParameters(this.report.product.id);
+        this.userService.getSampleTakers();
+        this.usersSubscription = this.userService.getusersUpdateListener().subscribe((users: User[]) => {
+          this.users = users;
+          this.reportId = Number(paramMap.get('reportId'));
+          this.report = this.reportService.getReportById(this.reportId);
+          this.reportItems = this.report.reportItems;
+          this.getWarehouses(this.report.product.id);
+          this.getParameters(this.report.product.id);
+          this.report.sampleTaker = this.getUser(this.report.sampleTakerId)
+
+        });
+
+
+
       } else {
         this.mode = 'create';
         this.reportId = null;
@@ -166,12 +184,11 @@ export class LaboratoryReportCreateComponent implements OnInit, OnDestroy {
           this.products = products;
           console.log(this.products);
         });
-
         this.userService.getSampleTakers();
         this.usersSubscription = this.userService.getusersUpdateListener().subscribe((users: User[]) => {
+          console.log(users);
           this.users = users;
         });
-
       }
     });
   }

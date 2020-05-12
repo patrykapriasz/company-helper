@@ -28,6 +28,7 @@ export class ReportCardComponent implements OnInit, OnDestroy {
       width: '500px',
       data: {
         id: report.id,
+        user: report.user,
         description: report.description,
         createdAt: report.createdAt,
         product: report.product,

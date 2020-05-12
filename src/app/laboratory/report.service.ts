@@ -44,13 +44,14 @@ export class ReportService {
       reportItems: reportItem
     }
 
-    this.http.patch<{message: string, content: {report:Report, reportItems:ReportItem[]}}>(environment.apiUrl+'/reports/edit'+report.id,reportData).subscribe(result=> {
+    this.http.patch<{message: string, content: {report:Report, reportItems:ReportItem[]}}>(environment.apiUrl+'/reports/edit/'+report.id,reportData).subscribe(result=> {
       console.log(result);
     })
   }
 
   // getReportById(id: Number) {
   //   this.http.get<{message: string, content: Report}>(environment.apiUrl+'/reports/'+id).subscribe(result => {
+  //     console.log(result);
   //     this.report = result.content;
   //     this.updatedReport.next(this.report);
   //   })
