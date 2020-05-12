@@ -4,11 +4,11 @@ import { ReportService } from '../../report.service';
 import {Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-laboratory-report-card',
-  templateUrl: './laboratory-report-card.component.html',
-  styleUrls: ['./laboratory-report-card.component.scss']
+  selector: 'app-laboratory-report-list-item',
+  templateUrl: './laboratory-report-list-item.component.html',
+  styleUrls: ['./laboratory-report-list-item.component.scss']
 })
-export class LaboratoryReportCardComponent implements OnInit, OnDestroy {
+export class LaboratoryReportListItemComponent implements OnInit, OnDestroy {
 
   reports: Report[]=[];
   updatedReports: Subscription;
@@ -17,7 +17,7 @@ export class LaboratoryReportCardComponent implements OnInit, OnDestroy {
   constructor(private reportService: ReportService) { }
 
   ngOnInit(): void {
-    this.reportService.getLastReports(this.count);
+    this.reportService.getPaginatedReports(this.count,1);
     this.updatedReports = this.reportService.getUpdatedReportShortList().subscribe((reports: Report[]) => {
       this.reports = reports;
     })

@@ -39,11 +39,16 @@ app.use((req,res,next)=>{
 
 User.belongsTo(Role);
 Role.hasMany(User);
+
 Department.hasMany(Task);
 Status.hasMany(Task);
+
 Report.hasMany(ReportItem);
+ReportItem.belongsTo(Report);
+
 User.hasMany(Report);
 Warehouse.hasMany(Report);
+Report.belongsTo(Warehouse);
 Product.belongsTo(ProductGroup);
 ProductGroup.hasOne(Product, {
   onDelete: 'SET NULL',
@@ -58,7 +63,6 @@ Product.hasOne(ProductParameter);
 ReportItem.belongsTo(ProductParameter);
 Product.hasOne(Report);
 Report.belongsTo(Product);
-
 
 app.use(adminRoute);
 app.use(roleRoute);

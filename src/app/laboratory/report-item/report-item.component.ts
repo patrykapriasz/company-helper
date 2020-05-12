@@ -12,16 +12,21 @@ export class ReportItemComponent implements OnInit {
 
   @Input()productParameter: ProductParameter;
   @Output()finishedReaserch = new EventEmitter<ReportItem>();
+  @Input() parameterValue: number;
+
+  @Input() existingReportItem: ReportItem
 
   reportItem: ReportItem;
+  parameterExistingValue: number;
 
   constructor() { }
 
   addParameterValue(event: number) {
+
     if(event) {
       this.reportItem = {
         id: null,
-        parameter: this.productParameter,
+        productParameter: this.productParameter,
         value: event
       };
       this.finishedReaserch.emit(this.reportItem);

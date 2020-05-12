@@ -1,0 +1,22 @@
+<div fxLayout="row wrap" fxLayoutGap="11px" fxLayoutAlign="flex-start" style="margin: 2rem ;">
+  <div *ngFor="let report of reports" style="cursor: pointer;">
+    <mat-card fxFlex="1 0 auto" fxLayoutGap="20px" style="margin: 0.5rem ;" (click)="openDialog(report)">
+      <mat-card-header>
+        <mat-card-title >{{report.createdAt | date:"yyyy-MM-dd"}}</mat-card-title>
+        <mat-card-subtitle>{{report.product.name}}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content >
+        <p>
+          {{report.warehouse.name}}
+        </p>
+        <p>{{report.description}}</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <!-- <button mat-button color="primary">Akceptuj</button> -->
+        <!-- <button mat-button color="warn">Edytuj</button> -->
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
+<mat-paginator [length]="totalCard" [pageSize]="cardPerSite" [pageSizeOptions]="cardPerSitesOptions" (page)="onChangePage($event)"></mat-paginator>
+
