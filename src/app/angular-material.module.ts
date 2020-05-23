@@ -18,6 +18,9 @@ import { MatListModule} from '@angular/material/list';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   imports: [
@@ -38,7 +41,10 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatListModule,
     MatDialogModule,
     MatPaginatorModule,
-    MatGridListModule
+    MatGridListModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatCheckboxModule,
   ],
   exports: [
     AppRoutingModule,
@@ -58,10 +64,13 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatListModule,
     MatDialogModule,
     MatPaginatorModule,
-    MatGridListModule
+    MatGridListModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatCheckboxModule
   ]
-
 })
+
 export class AngularMaterialModule {
 
 }

@@ -18,6 +18,9 @@ export class ReportService {
   private reportsShortList: Report[];
   private updatedreportsShortList = new Subject<Report[]>();
 
+  private count: Number;
+  private updatedCount = new Subject<Number>();
+
 
   constructor(private http: HttpClient){}
 
@@ -70,6 +73,33 @@ export class ReportService {
     });
   }
 
+  getFilteredReports(limitPerSite: number, siteIndex: number, dateFrom: string, dateTo: string, products: any) {
+    const criteria = [{dateFrom: dateFrom},{dateTo:dateTo}]
+    const params = `/${limitPerSite}/${siteIndex}?criteria=`+encodeURIComponent(JSON.stringify(criteria));
+    // this.http.get<{message:string, content: Report[]}>(environment.apiUrl+'/reports/filtered'+params)
+    //   .subscribe(result => {
+    //     console.log(result);
+    //     this.reportsShortList = result.content,
+    //     this.updatedreportsShortList.next([...this.reportsShortList])
+    //   });
+
+
+    const parameters  = {
+      dateFrom: dateFrom,
+      dateTo: dateTo,
+      products: products,
+    }
+
+    this.http.post<{message: string, content: any}>(environment.apiUrl+'/reports/filtered'+params,parameters).subscribe(result => {
+      this.reportsShortList = result.content.reports,
+      this.count = result.content.count;
+      this.updatedreportsShortList.next([...this.reportsShortList])
+      this.updatedCount.next(this.count)
+    })
+
+
+  }
+
   getUpdatedReport() {
     return this.updatedReport.asObservable();
   }
@@ -80,6 +110,10 @@ export class ReportService {
 
   getUpdatedReportShortList() {
     return this.updatedreportsShortList.asObservable();
+  }
+
+  getReportsCount() {
+    return this.updatedCount.asObservable();
   }
 
 }

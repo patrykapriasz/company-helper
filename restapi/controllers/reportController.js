@@ -5,6 +5,9 @@ const Product = require('../models/product');
 const Warehouse = require('../models/warehouse');
 const ProductParameter = require('../models/productParameters');
 
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
+
 
 exports.addReport = (req,res,next) => {
   Report.create({
@@ -99,6 +102,65 @@ exports.getPaginatedReports = (req,res,next) => {
       message: 'success',
       content: result
     })
+  }).catch(error => {
+    res.status(500).json({
+      message: 'error',
+      content: error
+    })
+  })
+}
+
+exports.getFilteredReports = (req,res,next) => {
+  console.log(req.body);
+  const limitPerSite = Number(req.params.limitPerSite);
+  const siteNumber = Number(req.params.siteIndex);
+  const crit = decodeURIComponent(req.query.criteria);
+  const decoded = JSON.parse(crit);
+  const dateFrom = req.body.dateFrom;
+  const dateTo = req.body.dateTo;
+  const products = req.body.products;
+  let reports;
+  Report.findAll({
+    include: [
+      { model:User },
+      { model: Product },
+      { model: Warehouse} ,
+      { model: ReportItem, include: {model: ProductParameter} },
+    ],
+    where: {
+      createdAt: {
+        [Op.between]:[dateFrom, dateTo]
+      },
+      productId: products
+    },
+    order: [
+      ['createdAt', 'DESC']
+    ],
+    limit: limitPerSite,
+    offset: limitPerSite * (siteNumber - 1)
+  }).then(result => {
+    reports = result;
+    Report.count({
+      where: {
+        createdAt: {
+          [Op.between]:[dateFrom, dateTo]
+        },
+        productId: products
+      },
+    }).then(result=>{
+      res.status(200).json({
+        message: 'success',
+        content: {
+          reports: reports,
+          count: result
+        }
+      })
+    }).catch()
+    console.log(result);
+    // res.status(200).json({
+    //   message: 'success',
+    //   content: result
+    // })
   }).catch(error => {
     res.status(500).json({
       message: 'error',

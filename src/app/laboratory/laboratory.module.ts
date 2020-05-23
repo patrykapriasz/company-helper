@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { LaboratoryComponent } from './laboratory.component';
@@ -33,6 +33,7 @@ import { ReportDialogComponent } from './report-dialog/report-dialog.component';
     AngularMaterialModule,
     LaboratoryRouting,
     FlexLayoutModule
-  ]
+  ],
+  providers:[DatePipe]
 })
 export class LaboratoryModule {}
