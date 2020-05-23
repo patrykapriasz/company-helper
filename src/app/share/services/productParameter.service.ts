@@ -16,7 +16,7 @@ export class ProductParameterService {
     this.http.get<{message: string, content: ProductParameter[]}>(environment.apiUrl+'/products/parameters/'+productId).subscribe(
       result=> {
         this.productParameters = result.content;
-        this.updatedProductParameter.next([...this.productParameters])
+        this.updatedProductParameter.next([...this.productParameters]);
       }
     );
   };

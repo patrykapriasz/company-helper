@@ -1,0 +1,35 @@
+<div>
+  <h1 mat-dialog-title fxLayout="row" fxLayoutAlign="center center">Raport nr {{data.id}} {{data.createdAt | date: 'yyyy-MM-dd'}}</h1>
+  <div mat-dialog-content>
+    <div class="dialog-content">
+      <div class="dialog-content-item">
+        <span><b>Przedmiot badania: </b>{{data.product.name}}</span>
+      </div>
+      <div class="dialog-content-item">
+        <span><b>Pochodzenie: </b>{{data.warehouse.name}}</span>
+      </div>
+      <div class="dialog-content-item">
+        <span><b>Opis: </b>{{data.description}}</span>
+      </div>
+      <div class="dialog-content-item parameters">
+        <h3 fxLayout="column" fxLayoutAlign="space-around center">PARAMETRY</h3>
+        <mat-list *ngFor="let reportItem of data.reportItems">
+          <mat-list-item>
+            <div fxLayout="row" style="width: 100%;">
+              <div class="parameter-name">{{reportItem.productParameter.name}}</div>
+              <div  fxLayout="row" fxLayoutAlign="end center" class="parameter-value">{{reportItem.value}}</div>
+            </div>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+      </mat-list>
+      </div>
+      <div class="dialog-content-item">
+        <b>Opracował: </b>{{data.user.firstname}} {{data.user.lastname}}  <mat-icon>face</mat-icon>
+      </div>
+    </div>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <a mat-button [routerLink]="['/reports/edit/',data.id]" (click)="onNoClick()">Edytuj</a>
+  <button mat-button (click)="onNoClick()">Zamknij</button>
+</div>

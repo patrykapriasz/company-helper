@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LaboratoryReportCardComponent } from './laboratory-report-card.component';
+import { LaboratoryReportListItemComponent } from './laboratory-report-list-item.component';
 
 describe('LaboratoryReportCardComponent', () => {
-  let component: LaboratoryReportCardComponent;
-  let fixture: ComponentFixture<LaboratoryReportCardComponent>;
+  let component: LaboratoryReportListItemComponent;
+  let fixture: ComponentFixture<LaboratoryReportListItemComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LaboratoryReportCardComponent ]
+      declarations: [ LaboratoryReportListItemComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LaboratoryReportCardComponent);
+    fixture = TestBed.createComponent(LaboratoryReportListItemComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

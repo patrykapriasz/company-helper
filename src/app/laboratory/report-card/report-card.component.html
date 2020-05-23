@@ -1,0 +1,56 @@
+<div fxLayout="row" fxLayoutAlign="space-evenly center">
+  <div>
+    <mat-form-field>
+      <mat-label>Wybierz datę początkową</mat-label>
+      <input matInput [matDatepicker]="pickerFrom" [(ngModel)]="dateFrom">
+      <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
+      <mat-datepicker #pickerFrom></mat-datepicker>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field>
+      <mat-label>Wybierz datę końcową</mat-label>
+      <input matInput [matDatepicker]="pickerTo" [(ngModel)]="dateTo">
+      <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
+      <mat-datepicker #pickerTo></mat-datepicker>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-checkbox [(ngModel)]="fameReport" #fame [value]=3 (click)="buildQueryCondition(fame.value)">FAME</mat-checkbox>
+  </div>
+  <div>
+    <mat-checkbox [(ngModel)]="rapeseedOilReport" #rapeseedOil [value]=1 (click)="buildQueryCondition(rapeseedOil.value)">Olej</mat-checkbox>
+  </div>
+  <div>
+    <mat-checkbox [(ngModel)]="ucoReport" #uco [value]=2 (click)="buildQueryCondition(uco.value)" >UCO</mat-checkbox>
+  </div>
+  <div>
+    <mat-checkbox [(ngModel)]="methanolReport" #methanol [value] = 5 (click)="buildQueryCondition(methanol.value)">Metanol</mat-checkbox>
+  </div>
+  <div>
+    <button mat-stroked-button (click)="filterReports()">Filtruj</button>
+  </div>
+
+</div>
+<div fxLayout="row wrap" fxLayoutGap="11px" fxLayoutAlign="flex-start" style="margin: 2rem ;">
+  <div *ngFor="let report of reports" style="cursor: pointer;">
+    <mat-card fxFlex="1 0 auto" fxLayoutGap="20px" style="margin: 0.5rem ;" (click)="openDialog(report)">
+      <mat-card-header>
+        <mat-card-title >{{report.createdAt | date:"yyyy-MM-dd"}}</mat-card-title>
+        <mat-card-subtitle>{{report.product.name}}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content >
+        <p>
+          {{report.warehouse.name}}
+        </p>
+        <p>{{report.description}}</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <!-- <button mat-button color="primary">Akceptuj</button> -->
+        <!-- <button mat-button color="warn">Edytuj</button> -->
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
+<mat-paginator [length]="totalCard" [pageSize]="cardPerSite" [pageSizeOptions]="cardPerSitesOptions" (page)="onChangePage($event)"></mat-paginator>
+
