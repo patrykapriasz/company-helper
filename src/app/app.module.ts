@@ -20,10 +20,10 @@ import { ManagerTaskComponent } from './manager/manager-task/manager-task.compon
 
 import { AuthInterceptor } from './auth/auth-interceptor';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { WarehouseComponent } from './warehouse/warehouse.component';
 import { AngularMaterialModule } from './angular-material.module';
 import { LaboratoryModule } from './laboratory/laboratory.module';
 import { AuthModule } from './auth/auth.module';
+import { WarehouseModule } from './warehouse/warehouse.module';
 
 @NgModule({
   declarations: [
@@ -39,7 +39,6 @@ import { AuthModule } from './auth/auth.module';
     ManagerComponent,
     ManagerTaskComponent,
     DashboardComponent,
-    WarehouseComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,6 +50,7 @@ import { AuthModule } from './auth/auth.module';
     AuthModule,
     FlexLayoutModule,
     ReactiveFormsModule,
+    WarehouseModule
 
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi:true}],

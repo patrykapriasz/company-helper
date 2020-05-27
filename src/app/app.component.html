@@ -12,6 +12,7 @@
       <span>PRS</span>
       <span class="menu-spacer"></span>
       <div fxShow="true" fxHide.lt-md>
+        <a *ngIf="userIsAuthenticated" mat-button routerLink="/warehouse" routerLinkActive="mat-accent">Magazyn</a>
         <a *ngIf="userIsAuthenticated" mat-button routerLink="/laboratory" routerLinkActive="mat-accent">Laboratorium</a>
         <a *ngIf="!userIsAuthenticated" mat-button routerLink="/auth/login" routerLinkActive="mat-accent">Login</a>
         <a *ngIf="userIsAuthenticated" mat-button (click)="onLogout()">Logout</a>

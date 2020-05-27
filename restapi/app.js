@@ -13,6 +13,9 @@ const Warehouse = require('./models/warehouse');
 const Product = require('./models/product');
 const ProductGroup = require('./models/productGroups');
 const ProductParameter = require('./models/productParameters');
+const Supplier = require('./models/warehouse/supplier');
+const Delivery = require('./models/warehouse/delivery');
+const SupplierHasProduct = require('./models/warehouse/supplier_has_product');
 
 const adminRoute = require('./routes/admin.route');
 const roleRoute = require('./routes/role.route');
@@ -63,6 +66,18 @@ Product.hasOne(ProductParameter);
 ReportItem.belongsTo(ProductParameter);
 Product.hasOne(Report);
 Report.belongsTo(Product);
+
+Delivery.belongsTo(Product);
+Product.hasMany(Delivery);
+Delivery.belongsTo(Report);
+Report.hasOne(Delivery);
+Delivery.belongsTo(Supplier);
+Supplier.hasMany(Delivery);
+
+SupplierHasProduct.belongsTo(Supplier);
+Supplier.hasMany(SupplierHasProduct);
+SupplierHasProduct.belongsTo(Product);
+Product.hasMany(SupplierHasProduct);
 
 app.use(adminRoute);
 app.use(roleRoute);
