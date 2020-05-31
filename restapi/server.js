@@ -49,5 +49,16 @@ const server = http.createServer(app);
 server.on("error", onError);
 server.on("listening", onListening);
 
+const io = require('socket.io')(server,{
+  transports: ['polling']
+});
+io.on('connection', (socket) => {
+  console.log('connected !!!');
+
+  socket.on('my message', (msg) => {
+    console.log('message: ' + msg);
+  });
+})
+
 server.listen(port)
 

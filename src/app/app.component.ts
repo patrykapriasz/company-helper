@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './auth/auth.service';
 import { Subscription } from 'rxjs';
+import { SocketService } from './socket.service';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +13,7 @@ export class AppComponent implements OnInit {
   private authListenerSubscription: Subscription;
   userIsAuthenticated: boolean = false;
 
-  constructor(private authService: AuthService){}
+  constructor(private authService: AuthService, private socketService: SocketService){}
 
   onLogout() {
     this.authService.onLogout()
@@ -27,6 +28,8 @@ export class AppComponent implements OnInit {
     this.authListenerSubscription = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
       this.userIsAuthenticated = isAuthenticated
     });
+
+    this.socketService.setupSocketConnection();
   }
   title = 'company-helper-prs';
 

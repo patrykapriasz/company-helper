@@ -1,6 +1,7 @@
 const http = require('http');
 const debug = require('debug')("node-angular");
 const app = require('./restapi/app');
+const io = require('./socket');
 
 const normalizePort = val => {
   var port = parseInt(val,10);
@@ -49,5 +50,13 @@ const server = http.createServer(app);
 server.on("error", onError);
 server.on("listening", onListening);
 
+io.init(server);
+const socket = io.getIO();
+
+socket.on('connection', (socket) => {
+  console.log('Connected!!!');
+})
+
 server.listen(port)
+
 
