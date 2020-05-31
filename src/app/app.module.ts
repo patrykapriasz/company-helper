@@ -24,6 +24,10 @@ import { WarehouseComponent } from './warehouse/warehouse.component';
 import { AngularMaterialModule } from './angular-material.module';
 import { LaboratoryModule } from './laboratory/laboratory.module';
 import { AuthModule } from './auth/auth.module';
+import { environment } from 'src/environments/environment';
+import { SocketService } from './socket.service';
+
+//const config: SocketIoConfig = {url: environment.apiUrl, options: {}}
 
 @NgModule({
   declarations: [
@@ -53,7 +57,7 @@ import { AuthModule } from './auth/auth.module';
     ReactiveFormsModule,
 
   ],
-  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi:true}],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi:true},SocketService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
