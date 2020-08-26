@@ -49,8 +49,8 @@ export class DeliveryComponent implements OnInit {
       report: null,
       supplier: supplier
     }
-    console.log(delivery);
-    //this.deliveryService.addNewDelivery(delivery);
+
+    this.deliveryService.addNewDelivery(delivery);
   }
 
   getSuppliersByProduct(productId: any) {
