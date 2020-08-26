@@ -1,6 +1,5 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const cors = require('cors');
 
 const sequelize = require('./dbcontext/database');
 const User = require('./models/user');
@@ -31,14 +30,10 @@ const reportRoute = require('./routes/report.route');
 const supplierRoute = require('./routes/supplier.route');
 const deliveryRoute = require('./routes/delivery.route');
 
-
-
 const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
-
-//app.use(cors());
 
 app.use((req,res,next)=>{
   res.setHeader("Access-Control-Allow-Origin","*")
@@ -97,8 +92,6 @@ app.use(productParameterRoute);
 app.use(reportRoute);
 app.use(supplierRoute);
 app.use(deliveryRoute);
-
-//app.use(require('express-status-monitor')());
 
 sequelize.sync().then(result => {
 

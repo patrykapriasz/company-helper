@@ -5,7 +5,7 @@ const sequalize = require('../../dbcontext/database');
 const DeliveryHasReport = sequalize.define('delivery_has_report', {
   id: {
     type: Sequalize.INTEGER,
-    primary: true,
+    primaryKey: true,
     autoIncrement: true,
     allowNull: false
   }
