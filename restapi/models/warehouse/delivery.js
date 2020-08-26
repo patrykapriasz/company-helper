@@ -12,6 +12,10 @@ const Delivery = sequelize.define('delivery',{
   status: {
     type: Sequelize.INTEGER,
     allowNull: false
+  },
+  amount: {
+    type: Sequelize.FLOAT,
+    allowNull: false
   }
 });
 

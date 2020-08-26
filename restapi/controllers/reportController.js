@@ -62,17 +62,11 @@ exports.getReport = (req,res,next) => {
 
     User.findByPk(samplerTakerId).then(result=> {
       existingReport.SamplerTaker = result;
-      console.log(existingReport);
       res.status(200).json({
       message: 'success',
       content: existingReport
     })
     })
-
-    // res.status(200).json({
-    //   message: 'success',
-    //   content: result
-    // })
   }).catch(error => {
     res.status(500).json({
       message: 'error',
@@ -156,11 +150,6 @@ exports.getFilteredReports = (req,res,next) => {
         }
       })
     }).catch()
-    console.log(result);
-    // res.status(200).json({
-    //   message: 'success',
-    //   content: result
-    // })
   }).catch(error => {
     res.status(500).json({
       message: 'error',

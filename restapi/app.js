@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 const sequelize = require('./dbcontext/database');
 const User = require('./models/user');
@@ -16,6 +17,7 @@ const ProductParameter = require('./models/productParameters');
 const Supplier = require('./models/warehouse/supplier');
 const Delivery = require('./models/warehouse/delivery');
 const SupplierHasProduct = require('./models/warehouse/supplier_has_product');
+const DeliveryHasReport = require('./models/warehouse/delivery_has_report');
 
 const adminRoute = require('./routes/admin.route');
 const roleRoute = require('./routes/role.route');
@@ -26,6 +28,9 @@ const productRoute = require('./routes/product.route');
 const warehouseRoute = require('./routes/warehouse.route');
 const productParameterRoute = require('./routes/productParameter.route');
 const reportRoute = require('./routes/report.route');
+const supplierRoute = require('./routes/supplier.route');
+const deliveryRoute = require('./routes/delivery.route');
+
 
 
 const app = express();
@@ -33,8 +38,11 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
+//app.use(cors());
+
 app.use((req,res,next)=>{
-  res.setHeader("Access-Control-Allow-Origin","*");
+  res.setHeader("Access-Control-Allow-Origin","*")
+  //res.setHeader("Access-Control-Allow-Origin",req.headers.origin);
   res.setHeader("Access-Control-Allow-Headers","Origin, X-Requested-With, Content-Type, Accept, Authorization");
   res.setHeader("Access-Control-Allow-Methods","GET, POST, PATCH, DELETE, OPTIONS");
   next();
@@ -87,8 +95,14 @@ app.use(productRoute);
 app.use(warehouseRoute);
 app.use(productParameterRoute);
 app.use(reportRoute);
+app.use(supplierRoute);
+app.use(deliveryRoute);
 
-sequelize.sync().then().catch(error => {
+//app.use(require('express-status-monitor')());
+
+sequelize.sync().then(result => {
+
+}).catch(error => {
   console.log(error);
 });
 

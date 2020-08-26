@@ -24,6 +24,8 @@ import { AngularMaterialModule } from './angular-material.module';
 import { LaboratoryModule } from './laboratory/laboratory.module';
 import { AuthModule } from './auth/auth.module';
 import { WarehouseModule } from './warehouse/warehouse.module';
+import { SocketService } from './socket.service';
+
 
 @NgModule({
   declarations: [
@@ -38,7 +40,7 @@ import { WarehouseModule } from './warehouse/warehouse.module';
     UserListComponent,
     ManagerComponent,
     ManagerTaskComponent,
-    DashboardComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -50,10 +52,9 @@ import { WarehouseModule } from './warehouse/warehouse.module';
     AuthModule,
     FlexLayoutModule,
     ReactiveFormsModule,
-    WarehouseModule
-
+    WarehouseModule,
   ],
-  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi:true}],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi:true}, SocketService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
