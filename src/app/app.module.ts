@@ -20,14 +20,12 @@ import { ManagerTaskComponent } from './manager/manager-task/manager-task.compon
 
 import { AuthInterceptor } from './auth/auth-interceptor';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { WarehouseComponent } from './warehouse/warehouse.component';
 import { AngularMaterialModule } from './angular-material.module';
 import { LaboratoryModule } from './laboratory/laboratory.module';
 import { AuthModule } from './auth/auth.module';
-import { environment } from 'src/environments/environment';
+import { WarehouseModule } from './warehouse/warehouse.module';
 import { SocketService } from './socket.service';
 
-//const config: SocketIoConfig = {url: environment.apiUrl, options: {}}
 
 @NgModule({
   declarations: [
@@ -42,8 +40,7 @@ import { SocketService } from './socket.service';
     UserListComponent,
     ManagerComponent,
     ManagerTaskComponent,
-    DashboardComponent,
-    WarehouseComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -55,9 +52,9 @@ import { SocketService } from './socket.service';
     AuthModule,
     FlexLayoutModule,
     ReactiveFormsModule,
-
+    WarehouseModule,
   ],
-  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi:true},SocketService],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi:true}, SocketService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

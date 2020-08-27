@@ -55,6 +55,11 @@ const socket = io.getIO();
 
 socket.on('connection', (socket) => {
   console.log('Connected!!!');
+
+  socket.on('addDelivery', (message) => {
+    //socket.emit('delivery', (message.message));
+    socket.broadcast.emit('delivery', ({title: 'Nowa Dostawa', content: '25'}));
+  })
 })
 
 server.listen(port)

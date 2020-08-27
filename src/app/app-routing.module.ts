@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AdminComponent } from './admin/admin.component';
-import { UserCreateComponent } from './user/user-create/user-create.component';
 import { RoleComponent } from './role/role.component';
 import { UserComponent } from './user/user.component';
 import { ManagerComponent } from './manager/manager.component';
@@ -11,6 +10,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthGuard } from './auth/auth.guard';
 import { LaboratoryComponent } from './laboratory/laboratory.component';
 import { LaboratoryReportComponent } from './laboratory/laboratory-report/laboratory-report.component';
+import { WarehouseComponent } from './warehouse/warehouse.component';
 
 
 const routes: Routes = [
@@ -22,8 +22,10 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'laboratory', component: LaboratoryComponent, canActivate:[AuthGuard]},
   { path: 'laboratory/reports', component: LaboratoryReportComponent, canActivate:[AuthGuard]},
+  { path: 'warehouse', component: WarehouseComponent, canActivate:[AuthGuard]},
   { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)},
-  { path: 'laboratory', loadChildren: () => import('./laboratory/laboratory.module').then(m =>m.LaboratoryModule)},
+  { path: 'laboratory', loadChildren: () => import('./laboratory/laboratory.module').then(m => m.LaboratoryModule)},
+  { path: 'warehouse', loadChildren: () => import('./warehouse/warehouse.module').then(m => m.WarehouseModule)},
 ];
 
 @NgModule({

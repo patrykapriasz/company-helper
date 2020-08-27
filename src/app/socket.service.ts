@@ -9,8 +9,11 @@ export class SocketService {
 
   setupSocketConnection() {
     this.socket = io(environment.apiUrl,{
-      transports: ['websocket']
+      transports: ['websocket'],
+      timeout: 6000,
+      secure: false
     });
   }
+
 
 }

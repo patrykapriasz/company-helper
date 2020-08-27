@@ -1,0 +1,45 @@
+
+<div class="wrapper" style="width: 60%;">
+  <mat-card>
+    <h2>Przyjęcie surowców</h2>
+    <br>
+    <form (submit)="addNewDelivery(deliveryForm)" #deliveryForm="ngForm">
+      <div fxLayout="column" fxLayoutAlign="start" fxLayout.xs="column">
+        <mat-form-field class="example-form-field">
+          <mat-label>Numer rejestracyjny</mat-label>
+          <input matInput type="text" name="transportId" [(ngModel)]="transport" #transportId="ngModel">
+          <button mat-button *ngIf="transport" matSuffix mat-icon-button aria-label="Clear" (click)="transport=''">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+        <br/>
+        <br/>
+        <mat-form-field>
+          <mat-label>Dostarczony surowiec</mat-label>
+          <mat-select name="subject" required [ngModel]="selectedProduct" #subject="ngModel" (selectionChange)="getSuppliersByProduct(subject.value)">
+            <mat-option *ngFor="let product of products let i = index" [value]="product.id" >{{product.name}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="subject.invalid">Surowiec jest wymagany</mat-error>
+        </mat-form-field>
+        <br/>
+        <br/>
+        <mat-form-field>
+          <mat-label>Dostawca</mat-label>
+          <mat-select name="supplier" [ngModel]="selectedSupplier" #supplier="ngModel" required>
+            <mat-option *ngFor="let supplier of suppliers let i = index" [value]="supplier.id">{{supplier.companyName}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Ilość przywiezionego produktu/surowca</mat-label>
+          <input type="number" matInput name="amountInput" [ngModel]="amount" #amountInput="ngModel">
+        </mat-form-field>
+      </div>
+      <br>
+      <div mat-dialog-actions>
+        <button mat-raised-button type="submit" color="warn">Zarejestruj dostawę</button>
+      </div>
+    </form>
+  </mat-card>
+</div>
+
+
