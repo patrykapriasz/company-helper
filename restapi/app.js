@@ -1,6 +1,5 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const cors = require('cors');
 
 const sequelize = require('./dbcontext/database');
 const User = require('./models/user');
@@ -14,6 +13,10 @@ const Warehouse = require('./models/warehouse');
 const Product = require('./models/product');
 const ProductGroup = require('./models/productGroups');
 const ProductParameter = require('./models/productParameters');
+const Supplier = require('./models/warehouse/supplier');
+const Delivery = require('./models/warehouse/delivery');
+const SupplierHasProduct = require('./models/warehouse/supplier_has_product');
+const DeliveryHasReport = require('./models/warehouse/delivery_has_report');
 
 const adminRoute = require('./routes/admin.route');
 const roleRoute = require('./routes/role.route');
@@ -24,15 +27,13 @@ const productRoute = require('./routes/product.route');
 const warehouseRoute = require('./routes/warehouse.route');
 const productParameterRoute = require('./routes/productParameter.route');
 const reportRoute = require('./routes/report.route');
-
-
+const supplierRoute = require('./routes/supplier.route');
+const deliveryRoute = require('./routes/delivery.route');
 
 const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
-
-//app.use(cors());
 
 app.use((req,res,next)=>{
   res.setHeader("Access-Control-Allow-Origin","*")
@@ -69,6 +70,18 @@ ReportItem.belongsTo(ProductParameter);
 Product.hasOne(Report);
 Report.belongsTo(Product);
 
+Delivery.belongsTo(Product);
+Product.hasMany(Delivery);
+Delivery.belongsTo(Report);
+Report.hasOne(Delivery);
+Delivery.belongsTo(Supplier);
+Supplier.hasMany(Delivery);
+
+SupplierHasProduct.belongsTo(Supplier);
+Supplier.hasMany(SupplierHasProduct);
+SupplierHasProduct.belongsTo(Product);
+Product.hasMany(SupplierHasProduct);
+
 app.use(adminRoute);
 app.use(roleRoute);
 app.use(userRoute);
@@ -77,8 +90,8 @@ app.use(productRoute);
 app.use(warehouseRoute);
 app.use(productParameterRoute);
 app.use(reportRoute);
-
-//app.use(require('express-status-monitor')());
+app.use(supplierRoute);
+app.use(deliveryRoute);
 
 sequelize.sync().then(result => {
 

@@ -67,11 +67,6 @@ exports.getReport = (req,res,next) => {
       content: existingReport
     })
     })
-
-    // res.status(200).json({
-    //   message: 'success',
-    //   content: result
-    // })
   }).catch(error => {
     res.status(500).json({
       message: 'error',
@@ -155,10 +150,6 @@ exports.getFilteredReports = (req,res,next) => {
         }
       })
     }).catch()
-    // res.status(200).json({
-    //   message: 'success',
-    //   content: result
-    // })
   }).catch(error => {
     res.status(500).json({
       message: 'error',

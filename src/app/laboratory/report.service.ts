@@ -52,14 +52,6 @@ export class ReportService {
     })
   }
 
-  // getReportById(id: Number) {
-  //   this.http.get<{message: string, content: Report}>(environment.apiUrl+'/reports/'+id).subscribe(result => {
-  //     console.log(result);
-  //     this.report = result.content;
-  //     this.updatedReport.next(this.report);
-  //   })
-  // }
-
   getReportById(id: Number) {
     return {...this.reportsShortList.find(r=>r.id === id)}
   }

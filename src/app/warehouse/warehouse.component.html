@@ -1,1 +1,23 @@
-<p>warehouse works!</p>
+<div>
+  <div>
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>
+        <mat-icon>local_shipping</mat-icon>
+        <span (click)="openDelivery()">Nowa dostawa</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>list</mat-icon>
+        <span (click)="openDelivery()">Lista raportów</span>
+      </button>
+    </mat-menu>
+  </div>
+  <div>
+    <main style="margin: 40px;">
+      <app-delivery-panel></app-delivery-panel>
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>

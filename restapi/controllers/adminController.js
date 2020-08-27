@@ -1,7 +1,7 @@
 const User = require('../models/user');
 const Role = require('../models/role');
 const authChecker = require('../auth-checker');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 exports.addUser = (req,res,next) => {
   const firstname = req.body.firstname;

@@ -22,9 +22,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.authService.autoAuthUser();
 
-
     this.userIsAuthenticated = this.authService.getIsAuth();
-    console.log("header: "+this.userIsAuthenticated);
     this.authListenerSubscription = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
       this.userIsAuthenticated = isAuthenticated
     });
